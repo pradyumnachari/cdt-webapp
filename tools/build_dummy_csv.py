@@ -1,7 +1,7 @@
 """
 Build a DEMO CSV in the real-data (v7) input format.
 
-This lets cdt_webapp_v3 be exercised end-to-end before the real extraction
+This lets cdt_webapp_v4 be exercised end-to-end before the real extraction
 CSV is available. It converts the existing synthetic cohort into the exact
 schema the real pipeline emits, so the app code does not need to change when
 the real file is swapped in.
@@ -36,7 +36,7 @@ Run
     python tools/build_dummy_csv.py
 
 Writes (created fresh; never overwrites anything)
-    cdt_webapp_v3/data/dummy_cohort.csv
+    cdt_webapp_v4/data/dummy_cohort.csv
 """
 
 from __future__ import annotations
@@ -50,7 +50,7 @@ import pandas as pd
 # --------------------------------------------------------------------------
 # Paths
 # --------------------------------------------------------------------------
-WEBAPP_DIR = Path(__file__).resolve().parents[1]          # cdt_webapp_v3/
+WEBAPP_DIR = Path(__file__).resolve().parents[1]          # cdt_webapp_v4/
 REPO_ROOT = WEBAPP_DIR.parent                              # CDT_code/
 
 GT_PATH = REPO_ROOT / "ground_truths_synth_v4" / "ground_truth.json"

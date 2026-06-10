@@ -1,5 +1,5 @@
 """
-Recommendation engine for cdt_webapp_v3.
+Evidence engine for cdt_webapp_v4 (descriptive, not prescriptive).
 
 Performance-only, cohort-grounded. Runs entirely on the parsed CSV — no
 pipeline, no LLM, no precomputed files. For each decision it produces TWO

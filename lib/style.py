@@ -119,13 +119,13 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     border-radius: 6px;
 }
 
-/* ── Section labels ─────────────────────────────────────────────── */
+/* ── Section labels (bumped for clinician readability) ──────────── */
 .section-label {
-    font-size: 10.5px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
-    color: #64748b;
+    color: #475569;          /* darker than #64748b for WCAG-AA on white */
     margin: 22px 0 8px 0;
     padding-bottom: 4px;
     border-bottom: 1px solid #e2e8f0;
@@ -140,11 +140,11 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     margin-bottom: 8px;
 }
 .stat-card-label {
-    font-size: 11px;
+    font-size: 12.5px;       /* bumped from 11px for readability */
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #64748b;
+    color: #475569;          /* darker than #64748b on white */
     margin: 0 0 4px 0;
 }
 .stat-card-value {
@@ -217,8 +217,8 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     border-left: 3px solid #cbd5e1;
     padding: 10px 14px;
     border-radius: 4px;
-    font-size: 12.5px;
-    color: #475569;
+    font-size: 13.5px;       /* bumped from 12.5px for readability */
+    color: #334155;          /* darker than #475569 */
     margin-bottom: 12px;
     line-height: 1.55;
 }
@@ -227,10 +227,41 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     border-left: 3px solid #f59e0b;
     padding: 10px 14px;
     border-radius: 4px;
-    font-size: 12.5px;
+    font-size: 13.5px;
     color: #78350f;
     margin-bottom: 12px;
     line-height: 1.55;
+}
+
+/* ── Persistent experimental banner (rendered below nav strip) ───── */
+.banner {
+    background: #fef3c7;        /* amber-100 */
+    border-top: 1px solid #fcd34d;
+    border-bottom: 1px solid #fcd34d;
+    color: #78350f;             /* amber-900 */
+    font-size: 12.5px;
+    font-weight: 600;
+    text-align: center;
+    padding: 6px 14px;
+    letter-spacing: 0.02em;
+    margin: 0 -1rem 14px -1rem;  /* break out of block-container padding */
+}
+
+/* ── Responsive nav (narrow viewports stack the buttons) ────────── */
+@media (max-width: 760px) {
+    /* Streamlit renders st.columns as flex rows; allow them to wrap */
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+    }
+    [data-testid="stHorizontalBlock"] > div {
+        flex: 1 1 50% !important;
+        min-width: 0 !important;
+    }
+}
+@media (max-width: 480px) {
+    [data-testid="stHorizontalBlock"] > div {
+        flex: 1 1 100% !important;
+    }
 }
 
 /* ── Method-step diagram ────────────────────────────────────────── */
@@ -274,15 +305,28 @@ def inject() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
 
 
+_BANNER_TEXT = ("Experimental research demo &nbsp;·&nbsp; synthetic data "
+                "&nbsp;·&nbsp; not for clinical use")
+
+
+def banner() -> None:
+    """Render the persistent experimental banner.
+
+    Typically called automatically by ``nav.render``; exposed as a public
+    helper so a page can re-emit it if a previous element disrupts the flow.
+    """
+    st.markdown(
+        f"<div class='banner'>{_BANNER_TEXT}</div>",
+        unsafe_allow_html=True,
+    )
+
+
 def footer() -> None:
     """Render a consistent footer."""
-    from .config import IS_DEMO_DATA
-
-    source = "demo data (synthetic)" if IS_DEMO_DATA else "real extraction data"
     st.markdown(
-        f"""
+        """
         <div class="footer">
-            Research demo · meningioma clinical decision support · {source}
+            Ask my data · retrospective explorer on a synthetic meningioma cohort
             <br/>
             Not for clinical use. Outputs are illustrative.
         </div>

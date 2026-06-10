@@ -1,5 +1,5 @@
 """
-Bucketing + action constants for cdt_webapp_v3.
+Bucketing + action constants for cdt_webapp_v4.
 
 Self-contained: the v7 pipeline's bucket logic is inlined here so the app
 has zero imports from the heavy pipeline packages. Size thresholds match

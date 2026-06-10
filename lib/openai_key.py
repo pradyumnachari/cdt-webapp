@@ -36,8 +36,9 @@ def render_missing_key_panel() -> None:
             number is computed by the app, the model only writes the prose —
             but it needs an LLM for that.
             <br/><br/>
-            <b>Set it up once:</b> create
-            <code>cdt_webapp_v3/.streamlit/secrets.toml</code> with one line:
+            <b>Set it up once</b> (local self-host only — the hosted demo
+            has a key configured for you): create
+            <code>cdt_webapp_v4/.streamlit/secrets.toml</code> with one line:
             <pre style="margin:8px 0 4px 0;padding:8px 10px;background:#fff7ed;
                         border-radius:4px;font-size:11.5px;color:#7c2d12;">
 openai_api_key = "sk-..."

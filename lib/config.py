@@ -1,5 +1,5 @@
 """
-Configuration for cdt_webapp_v3.
+Configuration for cdt_webapp_v4 — Ask my data (meningioma cohort).
 
 ================================================================
   >>> WHERE TO PROVIDE YOUR REAL DATA FILE <<<
@@ -14,7 +14,7 @@ and an identifier column named `patient_id` (or `MRN`).
 
 To use your real data, do EITHER of the following:
 
-  1. Drop your file in   cdt_webapp_v3/data/   and set
+  1. Drop your file in   cdt_webapp_v4/data/   and set
      COHORT_CSV below to its filename, e.g.:
          COHORT_CSV = DATA_DIR / "my_real_cohort.csv"
 

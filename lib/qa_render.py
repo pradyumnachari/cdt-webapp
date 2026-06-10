@@ -27,21 +27,53 @@ import pandas as pd
 # =====================================================================
 
 def render_answer(answer: Dict[str, Any], st) -> None:
-    """Render a qa_v9 answer dict as a sequence of Streamlit components."""
+    """Render a qa_v9 answer dict as a sequence of Streamlit components.
+
+    Summary-first layout: the narrative (direct answer → interpretation →
+    caveats) is rendered at full width above the fold. The supporting
+    tables (cohort construction, outcomes, subgroup detail, appendix)
+    drop into a single collapsed expander so the page reads like a
+    paragraph with the receipts a click away. Debug output is gated
+    behind a session-level dev-mode flag and renders last.
+    """
     if answer.get("error"):
-        _render_error(answer, st); return
+        _render_error(answer, st)
+        return
 
     if answer.get("sub_answers"):
-        _render_compound(answer, st); return
+        _render_compound(answer, st)
+        return
 
+    # ── Narrative (lead) ──
     _render_direct_answer(answer, st)
-    _render_cohort_construction(answer, st)
-    _render_outcomes_table(answer, st)
-    _render_subgroup_detail(answer, st)
     _render_interpretation(answer, st)
     _render_caveats(answer, st)
-    _render_appendix(answer, st)
-    _render_debug(answer, st)
+
+    # ── Supporting tables behind one collapsed expander ──
+    if (answer.get("cohort_construction")
+            or answer.get("outcomes_table")
+            or answer.get("stratified_descriptive")
+            or answer.get("subgroup_detail")
+            or answer.get("appendix_baseline_differences")
+            or answer.get("appendix_adjusted_analysis")
+            or answer.get("descriptive_profile")
+            or answer.get("trajectory_ranking")
+            or answer.get("pathway_funnel")
+            or answer.get("factual_value")):
+        with st.expander("Show the supporting tables (cohort, outcomes, "
+                         "subgroups, appendix)", expanded=False):
+            _render_cohort_construction(answer, st)
+            _render_outcomes_table(answer, st)
+            _render_subgroup_detail(answer, st)
+            _render_appendix(answer, st)
+
+    # ── Debug output (only when developer mode is on) ──
+    try:
+        dev_mode = bool(st.session_state.get("dev_mode", False))
+    except Exception:  # noqa: BLE001 — session state can be unavailable
+        dev_mode = False
+    if dev_mode:
+        _render_debug(answer, st)
 
 
 # =====================================================================
@@ -144,11 +176,16 @@ def _render_outcomes_table(answer: Dict[str, Any], st) -> None:
         rr_ci = cs.get("rr_ci") or (None, None)
         fp = cs.get("fishers_exact_p")
         ev = cs.get("evalue_point")
+        # Compute the signed string OUTSIDE the f-string. Python parsed
+        # everything after the colon in `{diff:+ if ... else ''}` as a format
+        # spec, which is invalid and raised ValueError for every COMPARATIVE
+        # answer (#5.1).
+        diff_str = f"{diff:+}" if isinstance(diff, (int, float)) else "—"
         st.markdown(
             f"""
             <div style="margin-top:10px;padding:10px 14px;background:#f1f5f9;
                        border-radius:6px;font-size:13px;color:#0f172a;">
-              <b>Absolute difference:</b> {diff:+ if isinstance(diff,(int,float)) else ''} pp
+              <b>Absolute difference:</b> {diff_str} pp
                 ({diff_ci[0]} to {diff_ci[1]} pp).
               &nbsp;&nbsp;<b>Risk ratio:</b> {rr} ({rr_ci[0]}–{rr_ci[1]}).
               &nbsp;&nbsp;<b>Fisher's exact p:</b> {fp}.
