@@ -1,7 +1,11 @@
 """
 cdt_webapp_v4 — Ask my data (meningioma cohort, retrospective explorer).
 
-Overview / landing page. Run with:
+Overview / landing page. Plain-language, clinician-focused, concise.
+Technical detail lives on pages/4_Technical_details.py and is reached
+only via the link at the bottom of this page.
+
+Run with:
     streamlit run app.py
 """
 
@@ -25,137 +29,201 @@ st.set_page_config(
 style.inject()
 nav.render("overview")
 
-# Cohort is intentionally NOT loaded on the overview — the substantive
-# tooling lives on the Visualizations and Similar-patients tabs. Keeping
-# the overview light loads it faster on first paint.
 
-# ── Hero ──────────────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────
+# Hero
+# ─────────────────────────────────────────────────────────────────────────
 st.markdown(
     """
     <div class="hero">
       <p class="hero-eyebrow">Ask my data &middot; meningioma cohort</p>
-      <h1 class="hero-title">A retrospective explorer over a synthetic
-      meningioma cohort.</h1>
+      <h1 class="hero-title">
+        A retrospective explorer for longitudinal meningioma care.</h1>
       <p class="hero-sub">
-        Ask my data is a clinician-facing demo for exploring how patients
-        in a longitudinal meningioma registry were treated and how they did.
-        Browse cohort-level statistics, ask plain-English questions and get
-        answers grounded in the underlying data, or inspect any single
-        patient alongside archetype-similar historical patients to see
-        what they received and how they did. The system describes what is
-        in the data; it does not recommend treatment.
+        Meningioma is managed over years, not in a single episode. The
+        decisions live in free-text notes. Ask my data turns those notes
+        into a structured view of the cohort you can explore directly.
       </p>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# ── What you can do here (plain language, descriptive verbs) ──────────────
+
+# ─────────────────────────────────────────────────────────────────────────
+# What you can do here — three compact cards
+# ─────────────────────────────────────────────────────────────────────────
 st.markdown("<p class='section-label'>What you can do here</p>",
             unsafe_allow_html=True)
 st.markdown(
     """
-    - **Ask my data.** Type a clinical question in plain English. The
-      system maps it to a deterministic analysis, runs the statistics in
-      code, and writes a short answer. Every number in the answer was
-      computed by code, not by the model.
-    - **Visualizations.** Filter the cohort by demographics or tumour
-      profile and see functional-outcome rates, treatment-pathway flow
-      diagrams, and the extraction provenance flags.
-    - **Similar patients & evidence.** Pick a patient and a decision
-      point. See what archetype-similar historical patients received at
-      the same point and how they did, alongside the patient's own
-      observed pathway.
-    """
-)
-
-# ── Important caveats (kept above the fold) ───────────────────────────────
-st.markdown(
-    """
-    <div class="warn-line" style="font-size:13.5px;">
-      <b>Not for clinical use.</b> This is a research demo over synthetic
-      data. The outputs are illustrative and must not be used to inform
-      patient care.
+    <div style='display:grid;grid-template-columns:1fr 1fr 1fr;
+                gap:14px;margin-top:6px;'>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#fff;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
+          Ask my data
+        </div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 4px 0;'>Type a question</div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          Free-form clinical questions, answered with statistics
+          computed in code — not invented.
+        </div>
+      </div>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#fff;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
+          Visualizations
+        </div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 4px 0;'>Explore the cohort</div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          Filter by grade, location, age, sex. See outcomes and
+          treatment pathways live.
+        </div>
+      </div>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#fff;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
+          Similar patients
+        </div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 4px 0;'>Look up one case</div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          For one patient at one decision point, see how
+          similar historical patients did.
+        </div>
+      </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# ── Technical detail (collapsed by default, methodology lives here) ───────
-with st.expander("How it works (technical detail)", expanded=False):
-    st.markdown(
-        """
-        The system has three coupled components.
 
-        **Extraction.** A multi-pass language-model pipeline reads each
-        patient's longitudinal notes and emits a structured record over a
-        fixed schema: demographics, diagnosis, and a sequence of dated
-        events with tumour measurement, intervention, performance status,
-        recurrence, and molecular-testing fields. Provenance flags for
-        copy-forwarded text, uncertain facts, inferred measurements, and
-        date inconsistencies are surfaced rather than hidden.
+# ─────────────────────────────────────────────────────────────────────────
+# Inputs and outputs — single compact strip
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown("<p class='section-label' style='margin-top:24px;'>"
+            "Inputs and outputs</p>",
+            unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='display:grid;grid-template-columns:1fr 0.08fr 1fr;
+                gap:14px;align-items:center;margin-top:4px;'>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#f8fafc;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;
+                    color:#475569;'>Input</div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 6px 0;'>
+          Longitudinal free-text notes
+        </div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          Imaging, op notes, clinic visits, radiation summaries,
+          pathology — as they appear in the chart.
+        </div>
+      </div>
+      <div style='text-align:center;color:#94a3b8;font-size:24px;'>→</div>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#eff6ff;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;
+                    color:#1d4ed8;'>Output</div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 6px 0;'>
+          Cohort &amp; patient-level evidence
+        </div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          Plain-English answers · cohort summaries · treatment-pathway
+          diagrams · per-patient evidence panels.
+        </div>
+      </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
-        **Stratified Trajectory Tree + Contextual Power Prior.** Records
-        are indexed by the patient's archetype (grade, location, age band,
-        sex), decision level, history-conditioned clinical state, and
-        action. Treatment history is embedded in the state key so
-        trajectories never collide. When a stratum is sparse, similarity-
-        weighted evidence is borrowed from neighbouring archetypes; the
-        effective sample size is reported alongside every estimate so
-        evidential sparsity is never silently smoothed into apparent
-        certainty.
 
-        **Cohort-to-text question answering.** Free-form questions compile
-        into a typed program over the registry schema (filter, aggregate,
-        compare, stratify, trajectory, funnel, anchor). The compiled
-        program runs in deterministic code — Clopper-Pearson intervals,
-        Fisher's exact test, Cochran-Mantel-Haenszel pooling, multi-
-        covariate inverse-probability weighting, E-values, minimum
-        detectable effects — and seals every statistic with a causal-tier
-        label and patient-level provenance into a locked stats block.
+# ─────────────────────────────────────────────────────────────────────────
+# Key terms — compact one-line definitions
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown("<p class='section-label' style='margin-top:24px;'>"
+            "Key terms</p>",
+            unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='border:1px solid #e2e8f0;border-radius:10px;
+                background:#f8fafc;padding:14px 18px;
+                font-size:13.5px;color:#334155;line-height:1.85;'>
+      <b>Decision levels — L1 / L2 / L3.</b>
+      Sequential decision points: L1 first, L2 next (recurrence, growth,
+      new symptoms), L3 if reached. Many patients never reach L3.
+      <br/>
+      <b>Action.</b>
+      <span style='background:#bbf7d0;padding:1px 7px;border-radius:4px;
+                   font-weight:600;color:#0f172a;'>Watch &amp; Wait</span>,
+      <span style='background:#ddd6fe;padding:1px 7px;border-radius:4px;
+                   font-weight:600;color:#0f172a;'>Surgery</span>, or
+      <span style='background:#fecaca;padding:1px 7px;border-radius:4px;
+                   font-weight:600;color:#0f172a;'>Radiation</span>.
+      <br/>
+      <b>Archetype.</b>
+      WHO grade × location × age band × sex.
+      <br/>
+      <b>Functional rate.</b>
+      Fraction with ECOG&nbsp;0–2 or KPS&nbsp;≥&nbsp;70 at last
+      follow-up.
+      <br/>
+      <b>Similar patients.</b>
+      Top historical patients whose archetype most closely matches.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
-        **Compute / narrate firewall.** The language model is invoked only
-        to write prose around the locked block; it cannot perform
-        arithmetic. A post-generation verifier checks that every numeric
-        token in the answer traces back to the block. Numerical grounding
-        is a property of the architecture, not of the model.
 
-        **Causal language is constrained.** Every statistic carries a
-        causal tier (association, adjusted association, sensitivity,
-        finding) with a corresponding language contract. Causal verbs are
-        downgraded when the underlying tier does not support them.
-        """
-    )
+# ─────────────────────────────────────────────────────────────────────────
+# Why this is new + validation in one block
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown("<p class='section-label' style='margin-top:24px;'>"
+            "Why this is new</p>",
+            unsafe_allow_html=True)
+st.markdown(
+    """
+    Subgroup statistics from a hospital's longitudinal patient
+    progress notes are hard: decisions live in free text, subgroups
+    are small, and a language model that just reads the notes tends to
+    invent numbers. The framework structures the notes, borrows
+    evidence across similar subgroups when one is sparse, and computes
+    every statistic in code *before* a language model writes any
+    prose. A separate check then confirms every number in the prose
+    traces back to that sealed block.
+    """
+)
 
-    st.markdown("<p class='section-label' style='margin-top:18px;'>"
-                "Known limits</p>", unsafe_allow_html=True)
-    st.markdown(
-        """
-        - **Synthetic data.** The demo cohort is generated from a
-          structural causal model so the population-level ground truth is
-          known by construction. It is not a real registry.
-        - **Semantic predicate limit.** The firewall guarantees faithful
-          narration of whatever was computed, but cannot guarantee the
-          compiled program is the right interpretation of the question.
-          A verified answer can still be vacuous if the compiler maps to
-          the wrong predicate.
-        - **Observational.** Action-conditioned outcomes are descriptive
-          signals, not causal effects. They are subject to confounding by
-          indication.
-        - **Three actions.** Surveillance, surgery, radiation. Sub-
-          modalities (GTR vs STR, SRS vs FSRT, proton vs photon) are not
-          modelled.
-        - **Coarse state.** Tumour size and symptoms are discretised; very
-          long trajectories are truncated at the third decision level.
-        - **Performance-only outcome.** The demo binarises functional
-          status from the last recorded performance score (ECOG / KPS).
-          Survival endpoints are out of scope.
-        """
-    )
 
-st.info("Open **Ask my data** to ask a free-form clinical question, "
-        "**Visualizations** to explore the cohort by filter, or "
-        "**Similar patients & evidence** to inspect one patient alongside "
-        "their archetype-similar historical peers.")
+# ─────────────────────────────────────────────────────────────────────────
+# Caveat + tech link
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown(
+    """
+    <div class="warn-line" style="margin-top:20px;font-size:13.5px;">
+      <b>Not for clinical use.</b> Research demo over synthetic data.
+      Outputs are illustrative.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+btn_col, _ = st.columns([2, 5])
+with btn_col:
+    if st.button("See the technical details →",
+                 use_container_width=True, type="primary"):
+        st.switch_page("pages/4_Technical_details.py")
 
 style.footer()
