@@ -1,16 +1,23 @@
 """
-cdt_webapp — Ask my data (meningioma cohort, retrospective explorer).
-Overview / landing page.
+cdt_webapp_v4 — Ask my data (meningioma cohort, retrospective explorer).
+
+Overview / landing page. Plain-language, clinician-focused, concise.
+Technical detail lives on pages/4_Technical_details.py and is reached
+only via the link at the bottom of this page.
 
 Run with:
     streamlit run app.py
 """
+
 from __future__ import annotations
+
 import sys
 from pathlib import Path
+
 import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 from lib import nav, style  # noqa: E402
 
 st.set_page_config(
@@ -22,225 +29,201 @@ st.set_page_config(
 style.inject()
 nav.render("overview")
 
-# ── Interactive hero logo ──────────────────────────────────────────────────
+
+# ─────────────────────────────────────────────────────────────────────────
+# Hero
+# ─────────────────────────────────────────────────────────────────────────
 st.markdown(
     """
-    <div class="hero-wrap">
-        <p class="hero-label">Meningioma cohort · retrospective explorer</p>
-        <h1 class="hero-title">
-            From clinical notes<br/>to <em>structured insight.</em>
-        </h1>
-        <p class="hero-sub">
-            Meningioma is managed over years, not a single episode.
-            The decisions live in free-text notes. Ask my data turns those
-            notes into a cohort you can actually explore.
-        </p>
-
-        <div id="logo-wrap" style="display:inline-block;position:relative;margin-bottom:4px;">
-            <svg id="main-logo" width="240" height="210" viewBox="0 0 240 210"
-                 fill="none" xmlns="http://www.w3.org/2000/svg"
-                 style="cursor:default;">
-
-                <!-- connector lines -->
-                <line x1="120" y1="58" x2="46"  y2="162" stroke="#1e293b" stroke-width="1.5"/>
-                <line x1="120" y1="58" x2="120" y2="162" stroke="#1e293b" stroke-width="1.5"/>
-                <line x1="120" y1="58" x2="194" y2="162" stroke="#1e293b" stroke-width="1.5"/>
-
-                <!-- root node -->
-                <circle id="n-root" cx="120" cy="44" r="20"
-                        fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"
-                        style="cursor:pointer;transition:all 0.2s;"/>
-                <text x="120" y="48" text-anchor="middle"
-                      fill="#93c5fd" font-size="10" font-family="Inter,sans-serif"
-                      font-weight="600" letter-spacing="0.05em">PATIENT</text>
-
-                <!-- leaf: watch & wait -->
-                <circle id="n-ww" cx="46" cy="176" r="16"
-                        fill="#052e16" stroke="#16a34a" stroke-width="1.5"
-                        style="cursor:pointer;transition:all 0.2s;"/>
-                <text x="46" y="180" text-anchor="middle"
-                      fill="#4ade80" font-size="9" font-family="Inter,sans-serif"
-                      font-weight="600">W&amp;W</text>
-
-                <!-- leaf: surgery -->
-                <circle id="n-surg" cx="120" cy="176" r="16"
-                        fill="#0d1526" stroke="#3b82f6" stroke-width="1.5"
-                        style="cursor:pointer;transition:all 0.2s;"/>
-                <text x="120" y="180" text-anchor="middle"
-                      fill="#93c5fd" font-size="9" font-family="Inter,sans-serif"
-                      font-weight="600">SURG</text>
-
-                <!-- leaf: radiation -->
-                <circle id="n-rad" cx="194" cy="176" r="16"
-                        fill="#1f0a0a" stroke="#dc2626" stroke-width="1.5"
-                        style="cursor:pointer;transition:all 0.2s;"/>
-                <text x="194" y="180" text-anchor="middle"
-                      fill="#fca5a5" font-size="9" font-family="Inter,sans-serif"
-                      font-weight="600">RAD</text>
-            </svg>
-
-            <!-- tooltips -->
-            <div id="tt-root" style="display:none;position:absolute;top:0;left:260px;
-                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
-                 border-radius:10px;padding:14px 16px;text-align:left;">
-                <div style="font-size:12px;font-weight:600;color:#93c5fd;margin-bottom:6px;">
-                    The patient
-                </div>
-                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
-                    One case at one decision point. Grade, location, age, sex —
-                    the archetype that drives matching.
-                </div>
-            </div>
-            <div id="tt-ww" style="display:none;position:absolute;bottom:10px;left:-240px;
-                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
-                 border-radius:10px;padding:14px 16px;text-align:left;">
-                <div style="font-size:12px;font-weight:600;color:#4ade80;margin-bottom:6px;">
-                    Watch &amp; wait
-                </div>
-                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
-                    Active surveillance. Most common first action for low-grade meningioma.
-                    Tracked across follow-up visits.
-                </div>
-            </div>
-            <div id="tt-surg" style="display:none;position:absolute;bottom:10px;left:260px;
-                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
-                 border-radius:10px;padding:14px 16px;text-align:left;">
-                <div style="font-size:12px;font-weight:600;color:#93c5fd;margin-bottom:6px;">
-                    Surgery
-                </div>
-                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
-                    Resection at L1, L2, or L3. Outcomes tracked by functional
-                    status and recurrence rate.
-                </div>
-            </div>
-            <div id="tt-rad" style="display:none;position:absolute;bottom:10px;right:260px;
-                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
-                 border-radius:10px;padding:14px 16px;text-align:left;">
-                <div style="font-size:12px;font-weight:600;color:#fca5a5;margin-bottom:6px;">
-                    Radiation
-                </div>
-                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
-                    SRS or fractionated RT. Chosen for inoperable or recurrent
-                    tumors at L2 or L3.
-                </div>
-            </div>
-        </div>
-
-        <p class="hero-hint">hover the nodes to explore</p>
-    </div>
-
-    <script>
-    (function() {
-        const pairs = [
-            ['n-root', 'tt-root'],
-            ['n-ww',   'tt-ww'],
-            ['n-surg', 'tt-surg'],
-            ['n-rad',  'tt-rad'],
-        ];
-        pairs.forEach(([nid, tid]) => {
-            const node = document.getElementById(nid);
-            const tip  = document.getElementById(tid);
-            if (!node || !tip) return;
-            node.addEventListener('mouseenter', () => {
-                pairs.forEach(([, t]) => { const el = document.getElementById(t); if (el) el.style.display = 'none'; });
-                tip.style.display = 'block';
-                node.setAttribute('r', nid === 'n-root' ? '24' : '20');
-            });
-            node.addEventListener('mouseleave', () => {
-                tip.style.display = 'none';
-                node.setAttribute('r', nid === 'n-root' ? '20' : '16');
-            });
-        });
-    })();
-    </script>
-    """,
-    unsafe_allow_html=True,
-)
-
-# ── Three feature cards ────────────────────────────────────────────────────
-st.markdown("<p class='section-label' style='margin:0 48px;'>What you can do</p>", unsafe_allow_html=True)
-st.markdown(
-    """
-    <div class="card-grid" style="border-top:1px solid #1e293b;border-bottom:1px solid #1e293b;">
-        <div class="feature-card">
-            <span class="feature-card-tag">Ask my data</span>
-            <div class="feature-card-title">Type a clinical question</div>
-            <div class="feature-card-body">
-                Free-form questions answered with statistics computed in code —
-                not invented by a language model.
-            </div>
-        </div>
-        <div class="feature-card" style="border-left:1px solid #1e293b;border-right:1px solid #1e293b;">
-            <span class="feature-card-tag">Visualize</span>
-            <div class="feature-card-title">Explore the cohort</div>
-            <div class="feature-card-body">
-                Filter by grade, location, age, sex. See treatment pathways
-                and outcomes come alive.
-            </div>
-        </div>
-        <div class="feature-card">
-            <span class="feature-card-tag">Find similar patients</span>
-            <div class="feature-card-title">Look up one case</div>
-            <div class="feature-card-body">
-                Match one patient to historical cases. See how they were
-                managed and what happened.
-            </div>
-        </div>
+    <div class="hero">
+      <p class="hero-eyebrow">Ask my data &middot; meningioma cohort</p>
+      <h1 class="hero-title">
+        A retrospective explorer for longitudinal meningioma care.</h1>
+      <p class="hero-sub">
+        Meningioma is managed over years, not in a single episode. The
+        decisions live in free-text notes. Ask my data turns those notes
+        into a structured view of the cohort you can explore directly.
+      </p>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# ── How it works ───────────────────────────────────────────────────────────
-st.markdown("<p class='section-label' style='margin:0 48px;'>How it works</p>", unsafe_allow_html=True)
+
+# ─────────────────────────────────────────────────────────────────────────
+# What you can do here — three compact cards
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown("<p class='section-label'>What you can do here</p>",
+            unsafe_allow_html=True)
 st.markdown(
     """
-    <div style='max-width:680px;margin:0 48px;'>
-        <div class="step-row">
-            <div class="step-num">1</div>
-            <div>
-                <div class="step-title">Notes go in</div>
-                <div class="step-body">Imaging reports, op notes, clinic visits, radiation summaries — raw free-text as it appears in the chart.</div>
-            </div>
+    <div style='display:grid;grid-template-columns:1fr 1fr 1fr;
+                gap:14px;margin-top:6px;'>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#fff;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
+          Ask my data
         </div>
-        <div class="step-row">
-            <div class="step-num">2</div>
-            <div>
-                <div class="step-title">Structure comes out</div>
-                <div class="step-body">The framework extracts decision points (L1, L2, L3), actions, and outcomes into a structured cohort table.</div>
-            </div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 4px 0;'>Type a question</div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          Free-form clinical questions, answered with statistics
+          computed in code — not invented.
         </div>
-        <div class="step-row">
-            <div class="step-num">3</div>
-            <div>
-                <div class="step-title">Statistics computed in code</div>
-                <div class="step-body">Every number is calculated in a sealed block before any language model writes a word of prose.</div>
-            </div>
+      </div>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#fff;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
+          Visualizations
         </div>
-        <div class="step-row">
-            <div class="step-num">4</div>
-            <div>
-                <div class="step-title">Answers verified</div>
-                <div class="step-body">A separate pass confirms every figure in the prose traces back to the sealed computation.</div>
-            </div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 4px 0;'>Explore the cohort</div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          Filter by grade, location, age, sex. See outcomes and
+          treatment pathways live.
         </div>
+      </div>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#fff;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
+          Similar patients
+        </div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 4px 0;'>Look up one case</div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          For one patient at one decision point, see how
+          similar historical patients did.
+        </div>
+      </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# ── Caveat + CTA ───────────────────────────────────────────────────────────
-st.markdown("<div style='height:32px;'></div>", unsafe_allow_html=True)
-col1, _ = st.columns([2, 5])
-with col1:
-    if st.button("See technical details →", use_container_width=True, type="primary"):
+
+# ─────────────────────────────────────────────────────────────────────────
+# Inputs and outputs — single compact strip
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown("<p class='section-label' style='margin-top:24px;'>"
+            "Inputs and outputs</p>",
+            unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='display:grid;grid-template-columns:1fr 0.08fr 1fr;
+                gap:14px;align-items:center;margin-top:4px;'>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#f8fafc;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;
+                    color:#475569;'>Input</div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 6px 0;'>
+          Longitudinal free-text notes
+        </div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          Imaging, op notes, clinic visits, radiation summaries,
+          pathology — as they appear in the chart.
+        </div>
+      </div>
+      <div style='text-align:center;color:#94a3b8;font-size:24px;'>→</div>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#eff6ff;'>
+        <div style='font-size:11.5px;text-transform:uppercase;
+                    letter-spacing:0.10em;font-weight:700;
+                    color:#1d4ed8;'>Output</div>
+        <div style='font-size:15px;font-weight:700;color:#0f172a;
+                    margin:4px 0 6px 0;'>
+          Cohort &amp; patient-level evidence
+        </div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          Plain-English answers · cohort summaries · treatment-pathway
+          diagrams · per-patient evidence panels.
+        </div>
+      </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Key terms — compact one-line definitions
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown("<p class='section-label' style='margin-top:24px;'>"
+            "Key terms</p>",
+            unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='border:1px solid #e2e8f0;border-radius:10px;
+                background:#f8fafc;padding:14px 18px;
+                font-size:13.5px;color:#334155;line-height:1.85;'>
+      <b>Decision levels — L1 / L2 / L3.</b>
+      Sequential decision points: L1 first, L2 next (recurrence, growth,
+      new symptoms), L3 if reached. Many patients never reach L3.
+      <br/>
+      <b>Action.</b>
+      <span style='background:#bbf7d0;padding:1px 7px;border-radius:4px;
+                   font-weight:600;color:#0f172a;'>Watch &amp; Wait</span>,
+      <span style='background:#ddd6fe;padding:1px 7px;border-radius:4px;
+                   font-weight:600;color:#0f172a;'>Surgery</span>, or
+      <span style='background:#fecaca;padding:1px 7px;border-radius:4px;
+                   font-weight:600;color:#0f172a;'>Radiation</span>.
+      <br/>
+      <b>Archetype.</b>
+      WHO grade × location × age band × sex.
+      <br/>
+      <b>Functional rate.</b>
+      Fraction with ECOG&nbsp;0–2 or KPS&nbsp;≥&nbsp;70 at last
+      follow-up.
+      <br/>
+      <b>Similar patients.</b>
+      Top historical patients whose archetype most closely matches.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Why this is new + validation in one block
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown("<p class='section-label' style='margin-top:24px;'>"
+            "Why this is new</p>",
+            unsafe_allow_html=True)
+st.markdown(
+    """
+    Subgroup statistics from a hospital's longitudinal patient
+    progress notes are hard: decisions live in free text, subgroups
+    are small, and a language model that just reads the notes tends to
+    invent numbers. The framework structures the notes, borrows
+    evidence across similar subgroups when one is sparse, and computes
+    every statistic in code *before* a language model writes any
+    prose. A separate check then confirms every number in the prose
+    traces back to that sealed block.
+    """
+)
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Caveat + tech link
+# ─────────────────────────────────────────────────────────────────────────
+st.markdown(
+    """
+    <div class="warn-line" style="margin-top:20px;font-size:13.5px;">
+      <b>Not for clinical use.</b> Research demo over synthetic data.
+      Outputs are illustrative.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+btn_col, _ = st.columns([2, 5])
+with btn_col:
+    if st.button("See the technical details →",
+                 use_container_width=True, type="primary"):
         st.switch_page("pages/4_Technical_details.py")
-
-st.markdown(
-    "<div class='warn-line' style='margin:16px 48px 0;max-width:480px;'>"
-    "<b>Not for clinical use.</b> Research demo over synthetic data. Outputs are illustrative."
-    "</div>",
-    unsafe_allow_html=True,
-)
 
 style.footer()
