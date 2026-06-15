@@ -241,11 +241,9 @@ with col1:
         if st.button("See technical details →", use_container_width=True, type="primary"):
                     st.switch_page("pages/4_Technical_details.py")
 
-    st.markdown(
-            "<div class='warn-line' style='margin:16px 48px 0;max-width:480px;'>"
-            "<b>Not for clinical use.</b> Research demo over synthetic data. Outputs are illustrative."
-            "</div>",
-            unsafe_allow_html=True,
-    )
-
-style.footer()
+st.markdown(
+    "<div class='warn-line' style='margin:16px 48px 0;max-width:480px;'>"
+    "<b>Not for clinical use.</b> Research demo over synthetic data. Outputs are illustrative."
+    "</div>",
+    unsafe_allow_html=True,
+)
