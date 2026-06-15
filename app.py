@@ -1,246 +1,251 @@
 """
 cdt_webapp — Ask my data (meningioma cohort, retrospective explorer).
+
 Overview / landing page.
 
 Run with:
+
     streamlit run app.py
-"""
+
+    """
+
 from __future__ import annotations
+
 import sys
 from pathlib import Path
+
 import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lib import nav, style  # noqa: E402
 
 st.set_page_config(
-    page_title="Ask my data — meningioma cohort",
-    page_icon="🧠",
-    layout="wide",
-    initial_sidebar_state="collapsed",
+        page_title="Ask my data — meningioma cohort",
+        page_icon="🧠",
+        layout="wide",
+        initial_sidebar_state="collapsed",
 )
+
 style.inject()
 nav.render("overview")
 
 # ── Interactive hero logo ──────────────────────────────────────────────────
+
 st.markdown(
-    """
-    <div class="hero-wrap">
-        <p class="hero-label">Meningioma cohort · retrospective explorer</p>
-        <h1 class="hero-title">
-            From clinical notes<br/>to <em>structured insight.</em>
-        </h1>
-        <p class="hero-sub">
-            Meningioma is managed over years, not a single episode.
-            The decisions live in free-text notes. Ask my data turns those
-            notes into a cohort you can actually explore.
-        </p>
-
-        <div id="logo-wrap" style="display:inline-block;position:relative;margin-bottom:4px;">
-            <svg id="main-logo" width="240" height="210" viewBox="0 0 240 210"
-                 fill="none" xmlns="http://www.w3.org/2000/svg"
-                 style="cursor:default;">
-
-                <!-- connector lines -->
-                <line x1="120" y1="58" x2="46"  y2="162" stroke="#1e293b" stroke-width="1.5"/>
-                <line x1="120" y1="58" x2="120" y2="162" stroke="#1e293b" stroke-width="1.5"/>
-                <line x1="120" y1="58" x2="194" y2="162" stroke="#1e293b" stroke-width="1.5"/>
-
-                <!-- root node -->
-                <circle id="n-root" cx="120" cy="44" r="20"
-                        fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"
-                        style="cursor:pointer;transition:all 0.2s;"/>
-                <text x="120" y="48" text-anchor="middle"
-                      fill="#93c5fd" font-size="10" font-family="Inter,sans-serif"
-                      font-weight="600" letter-spacing="0.05em">PATIENT</text>
-
-                <!-- leaf: watch & wait -->
-                <circle id="n-ww" cx="46" cy="176" r="16"
-                        fill="#052e16" stroke="#16a34a" stroke-width="1.5"
-                        style="cursor:pointer;transition:all 0.2s;"/>
-                <text x="46" y="180" text-anchor="middle"
-                      fill="#4ade80" font-size="9" font-family="Inter,sans-serif"
-                      font-weight="600">W&amp;W</text>
-
-                <!-- leaf: surgery -->
-                <circle id="n-surg" cx="120" cy="176" r="16"
-                        fill="#0d1526" stroke="#3b82f6" stroke-width="1.5"
-                        style="cursor:pointer;transition:all 0.2s;"/>
-                <text x="120" y="180" text-anchor="middle"
-                      fill="#93c5fd" font-size="9" font-family="Inter,sans-serif"
-                      font-weight="600">SURG</text>
-
-                <!-- leaf: radiation -->
-                <circle id="n-rad" cx="194" cy="176" r="16"
-                        fill="#1f0a0a" stroke="#dc2626" stroke-width="1.5"
-                        style="cursor:pointer;transition:all 0.2s;"/>
-                <text x="194" y="180" text-anchor="middle"
-                      fill="#fca5a5" font-size="9" font-family="Inter,sans-serif"
-                      font-weight="600">RAD</text>
-            </svg>
-
-            <!-- tooltips -->
-            <div id="tt-root" style="display:none;position:absolute;top:0;left:260px;
-                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
-                 border-radius:10px;padding:14px 16px;text-align:left;">
-                <div style="font-size:12px;font-weight:600;color:#93c5fd;margin-bottom:6px;">
-                    The patient
-                </div>
-                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
-                    One case at one decision point. Grade, location, age, sex —
-                    the archetype that drives matching.
-                </div>
-            </div>
-            <div id="tt-ww" style="display:none;position:absolute;bottom:10px;left:-240px;
-                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
-                 border-radius:10px;padding:14px 16px;text-align:left;">
-                <div style="font-size:12px;font-weight:600;color:#4ade80;margin-bottom:6px;">
-                    Watch &amp; wait
-                </div>
-                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
-                    Active surveillance. Most common first action for low-grade meningioma.
-                    Tracked across follow-up visits.
-                </div>
-            </div>
-            <div id="tt-surg" style="display:none;position:absolute;bottom:10px;left:260px;
-                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
-                 border-radius:10px;padding:14px 16px;text-align:left;">
-                <div style="font-size:12px;font-weight:600;color:#93c5fd;margin-bottom:6px;">
-                    Surgery
-                </div>
-                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
-                    Resection at L1, L2, or L3. Outcomes tracked by functional
-                    status and recurrence rate.
-                </div>
-            </div>
-            <div id="tt-rad" style="display:none;position:absolute;bottom:10px;right:260px;
-                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
-                 border-radius:10px;padding:14px 16px;text-align:left;">
-                <div style="font-size:12px;font-weight:600;color:#fca5a5;margin-bottom:6px;">
-                    Radiation
-                </div>
-                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
-                    SRS or fractionated RT. Chosen for inoperable or recurrent
-                    tumors at L2 or L3.
-                </div>
-            </div>
-        </div>
-
-        <p class="hero-hint">hover the nodes to explore</p>
-    </div>
-
-    <script>
-    (function() {
-        const pairs = [
-            ['n-root', 'tt-root'],
-            ['n-ww',   'tt-ww'],
-            ['n-surg', 'tt-surg'],
-            ['n-rad',  'tt-rad'],
-        ];
-        pairs.forEach(([nid, tid]) => {
-            const node = document.getElementById(nid);
-            const tip  = document.getElementById(tid);
-            if (!node || !tip) return;
-            node.addEventListener('mouseenter', () => {
-                pairs.forEach(([, t]) => { const el = document.getElementById(t); if (el) el.style.display = 'none'; });
-                tip.style.display = 'block';
-                node.setAttribute('r', nid === 'n-root' ? '24' : '20');
-            });
-            node.addEventListener('mouseleave', () => {
-                tip.style.display = 'none';
-                node.setAttribute('r', nid === 'n-root' ? '20' : '16');
-            });
-        });
-    })();
-    </script>
-    """,
-    unsafe_allow_html=True,
+        """
+            <div class="hero-wrap">
+                    <p class="hero-label">Meningioma cohort · retrospective explorer</p>
+                            <h1 class="hero-title">
+                                        From clinical notes<br/>to <em>structured insight.</em>
+                                                </h1>
+                                                        <p class="hero-sub">
+                                                                    Meningioma is managed over years, not a single episode.
+                                                                                The decisions live in free-text notes. Ask my data turns those
+                                                                                            notes into a cohort you can actually explore.
+                                                                                                    </p>
+                                                                                                            <div id="logo-wrap" style="display:inline-block;position:relative;margin-bottom:4px;">
+                                                                                                                        <svg id="main-logo" width="240" height="210" viewBox="0 0 240 210"
+                     fill="none" xmlns="http://www.w3.org/2000/svg"
+                     style="cursor:default;">
+                                     <!-- connector lines -->
+                                                     <line x1="120" y1="58" x2="46"  y2="162" stroke="#1e293b" stroke-width="1.5"/>
+                                                                     <line x1="120" y1="58" x2="120" y2="162" stroke="#1e293b" stroke-width="1.5"/>
+                                                                                     <line x1="120" y1="58" x2="194" y2="162" stroke="#1e293b" stroke-width="1.5"/>
+                                                                                                     <!-- root node -->
+                                                                                                                     <circle id="n-root" cx="120" cy="44" r="20"
+                            fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"
+                            style="cursor:pointer;transition:all 0.2s;"/>
+                                            <text x="120" y="48" text-anchor="middle"
+                          fill="#93c5fd" font-size="10" font-family="Inter,sans-serif"
+                          font-weight="600" letter-spacing="0.05em">PATIENT</text>
+                                          <!-- leaf: watch & wait -->
+                                                          <circle id="n-ww" cx="46" cy="176" r="16"
+                            fill="#052e16" stroke="#16a34a" stroke-width="1.5"
+                            style="cursor:pointer;transition:all 0.2s;"/>
+                                            <text x="46" y="180" text-anchor="middle"
+                          fill="#4ade80" font-size="9" font-family="Inter,sans-serif"
+                          font-weight="600">W&amp;W</text>
+                                          <!-- leaf: surgery -->
+                                                          <circle id="n-surg" cx="120" cy="176" r="16"
+                            fill="#0d1526" stroke="#3b82f6" stroke-width="1.5"
+                            style="cursor:pointer;transition:all 0.2s;"/>
+                                            <text x="120" y="180" text-anchor="middle"
+                          fill="#93c5fd" font-size="9" font-family="Inter,sans-serif"
+                          font-weight="600">SURG</text>
+                                          <!-- leaf: radiation -->
+                                                          <circle id="n-rad" cx="194" cy="176" r="16"
+                            fill="#1f0a0a" stroke="#dc2626" stroke-width="1.5"
+                            style="cursor:pointer;transition:all 0.2s;"/>
+                                            <text x="194" y="180" text-anchor="middle"
+                          fill="#fca5a5" font-size="9" font-family="Inter,sans-serif"
+                          font-weight="600">RAD</text>
+                                      </svg>
+                                                  <!-- tooltips -->
+                                                              <div id="tt-root" style="display:none;position:absolute;top:0;left:260px;
+                                                                               width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
+                                                                                                border-radius:10px;padding:14px 16px;text-align:left;">
+                                                                                                                <div style="font-size:12px;font-weight:600;color:#93c5fd;margin-bottom:6px;">
+                                                                                                                                    The patient
+                                                                                                                                                    </div>
+                                                                                                                                                                    <div style="font-size:11.5px;color:#475569;line-height:1.55;">
+                                                                                                                                                                                        One case at one decision point. Grade, location, age, sex —
+                                                                                                                                                                                                            the archetype that drives matching.
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                    <div id="tt-ww" style="display:none;position:absolute;bottom:10px;left:-240px;
+                                                                                                                                                                                                                                                                     width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
+                                                                                                                                                                                                                                                                                      border-radius:10px;padding:14px 16px;text-align:left;">
+                                                                                                                                                                                                                                                                                                      <div style="font-size:12px;font-weight:600;color:#4ade80;margin-bottom:6px;">
+                                                                                                                                                                                                                                                                                                                          Watch &amp; wait
+                                                                                                                                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                                                                                                                                                          <div style="font-size:11.5px;color:#475569;line-height:1.55;">
+                                                                                                                                                                                                                                                                                                                                                                              Active surveillance. Most common first action for low-grade meningioma.
+                                                                                                                                                                                                                                                                                                                                                                                                  Tracked across follow-up visits.
+                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                          <div id="tt-surg" style="display:none;position:absolute;bottom:10px;left:260px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                           width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            border-radius:10px;padding:14px 16px;text-align:left;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div style="font-size:12px;font-weight:600;color:#93c5fd;margin-bottom:6px;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Surgery
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div style="font-size:11.5px;color:#475569;line-height:1.55;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Resection at L1, L2, or L3. Outcomes tracked by functional
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        status and recurrence rate.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div id="tt-rad" style="display:none;position:absolute;bottom:10px;right:260px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 width:210px;background:#0a0f1a;border:1px solid #1e3a5f;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  border-radius:10px;padding:14px 16px;text-align:left;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <div style="font-size:12px;font-weight:600;color:#fca5a5;margin-bottom:6px;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Radiation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <div style="font-size:11.5px;color:#475569;line-height:1.55;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          SRS or fractionated RT. Chosen for inoperable or recurrent
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              tumors at L2 or L3.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <p class="hero-hint">hover the nodes to explore</p>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      (function() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              const pairs = [
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ['n-root', 'tt-root'],
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ['n-ww',   'tt-ww'],
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ['n-surg', 'tt-surg'],
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ['n-rad',  'tt-rad'],
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ];
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              pairs.forEach(([nid, tid]) => {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const node = document.getElementById(nid);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      const tip  = document.getElementById(tid);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  if (!node || !tip) return;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              node.addEventListener('mouseenter', () => {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              pairs.forEach(([, t]) => { const el = document.getElementById(t); if (el) el.style.display = 'none'; });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              tip.style.display = 'block';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              node.setAttribute('r', nid === 'n-root' ? '24' : '20');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      node.addEventListener('mouseleave', () => {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      tip.style.display = 'none';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      node.setAttribute('r', nid === 'n-root' ? '20' : '16');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              })();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      """,
+        unsafe_allow_html=True,
 )
 
 # ── Three feature cards ────────────────────────────────────────────────────
+
 st.markdown("<p class='section-label' style='margin:0 48px;'>What you can do</p>", unsafe_allow_html=True)
+
 st.markdown(
-    """
-    <div class="card-grid" style="border-top:1px solid #1e293b;border-bottom:1px solid #1e293b;">
-        <div class="feature-card">
-            <span class="feature-card-tag">Ask my data</span>
-            <div class="feature-card-title">Type a clinical question</div>
-            <div class="feature-card-body">
-                Free-form questions answered with statistics computed in code —
-                not invented by a language model.
-            </div>
-        </div>
-        <div class="feature-card" style="border-left:1px solid #1e293b;border-right:1px solid #1e293b;">
-            <span class="feature-card-tag">Visualize</span>
-            <div class="feature-card-title">Explore the cohort</div>
-            <div class="feature-card-body">
-                Filter by grade, location, age, sex. See treatment pathways
-                and outcomes come alive.
-            </div>
-        </div>
-        <div class="feature-card">
-            <span class="feature-card-tag">Find similar patients</span>
-            <div class="feature-card-title">Look up one case</div>
-            <div class="feature-card-body">
-                Match one patient to historical cases. See how they were
-                managed and what happened.
-            </div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
+        """
+            <div class="card-grid" style="border-top:1px solid #1e293b;border-bottom:1px solid #1e293b;">
+                    <div class="feature-card">
+                                <span class="feature-card-tag">Ask my data</span>
+                                            <div class="feature-card-title">Type a clinical question</div>
+                                                        <div class="feature-card-body">
+                                                                        Free-form questions answered with statistics computed in code —
+                                                                                        not invented by a language model.
+                                                                                                    </div>
+                                                                                                            </div>
+                                                                                                                    <div class="feature-card" style="border-left:1px solid #1e293b;border-right:1px solid #1e293b;">
+                                                                                                                                <span class="feature-card-tag">Visualize</span>
+                                                                                                                                            <div class="feature-card-title">Explore the cohort</div>
+                                                                                                                                                        <div class="feature-card-body">
+                                                                                                                                                                        Filter by grade, location, age, sex. See treatment pathways
+                                                                                                                                                                                        and outcomes come alive.
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                    <div class="feature-card">
+                                                                                                                                                                                                                                <span class="feature-card-tag">Find similar patients</span>
+                                                                                                                                                                                                                                            <div class="feature-card-title">Look up one case</div>
+                                                                                                                                                                                                                                                        <div class="feature-card-body">
+                                                                                                                                                                                                                                                                        Match one patient to historical cases. See how they were
+                                                                                                                                                                                                                                                                                        managed and what happened.
+                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                    """,
+        unsafe_allow_html=True,
 )
 
 # ── How it works ───────────────────────────────────────────────────────────
+
 st.markdown("<p class='section-label' style='margin:0 48px;'>How it works</p>", unsafe_allow_html=True)
+
 st.markdown(
-    """
-    <div style='max-width:680px;margin:0 48px;'>
-        <div class="step-row">
-            <div class="step-num">1</div>
-            <div>
-                <div class="step-title">Notes go in</div>
-                <div class="step-body">Imaging reports, op notes, clinic visits, radiation summaries — raw free-text as it appears in the chart.</div>
-            </div>
-        </div>
-        <div class="step-row">
-            <div class="step-num">2</div>
-            <div>
-                <div class="step-title">Structure comes out</div>
-                <div class="step-body">The framework extracts decision points (L1, L2, L3), actions, and outcomes into a structured cohort table.</div>
-            </div>
-        </div>
-        <div class="step-row">
-            <div class="step-num">3</div>
-            <div>
-                <div class="step-title">Statistics computed in code</div>
-                <div class="step-body">Every number is calculated in a sealed block before any language model writes a word of prose.</div>
-            </div>
-        </div>
-        <div class="step-row">
-            <div class="step-num">4</div>
-            <div>
-                <div class="step-title">Answers verified</div>
-                <div class="step-body">A separate pass confirms every figure in the prose traces back to the sealed computation.</div>
-            </div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
+        """
+            <div style='max-width:680px;margin:0 48px;'>
+                    <div class="step-row">
+                                <div class="step-num">1</div>
+                                            <div>
+                                                            <div class="step-title">Notes go in</div>
+                                                                            <div class="step-body">Imaging reports, op notes, clinic visits, radiation summaries — raw free-text as it appears in the chart.</div>
+                                                                                        </div>
+                                                                                                </div>
+                                                                                                        <div class="step-row">
+                                                                                                                    <div class="step-num">2</div>
+                                                                                                                                <div>
+                                                                                                                                                <div class="step-title">Structure comes out</div>
+                                                                                                                                                                <div class="step-body">The framework extracts decision points (L1, L2, L3), actions, and outcomes into a structured cohort table.</div>
+                                                                                                                                                                            </div>
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                            <div class="step-row">
+                                                                                                                                                                                                        <div class="step-num">3</div>
+                                                                                                                                                                                                                    <div>
+                                                                                                                                                                                                                                    <div class="step-title">Statistics computed in code</div>
+                                                                                                                                                                                                                                                    <div class="step-body">Every number is calculated in a sealed block before any language model writes a word of prose.</div>
+                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                <div class="step-row">
+                                                                                                                                                                                                                                                                                            <div class="step-num">4</div>
+                                                                                                                                                                                                                                                                                                        <div>
+                                                                                                                                                                                                                                                                                                                        <div class="step-title">Answers verified</div>
+                                                                                                                                                                                                                                                                                                                                        <div class="step-body">A separate pass confirms every figure in the prose traces back to the sealed computation.</div>
+                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                                    """,
+        unsafe_allow_html=True,
 )
 
 # ── Caveat + CTA ───────────────────────────────────────────────────────────
+
 st.markdown("<div style='height:32px;'></div>", unsafe_allow_html=True)
+
 col1, _ = st.columns([2, 5])
 with col1:
-    if st.button("See technical details →", use_container_width=True, type="primary"):
-        st.switch_page("pages/4_Technical_details.py")
+        if st.button("See technical details →", use_container_width=True, type="primary"):
+                    st.switch_page("pages/4_Technical_details.py")
 
-st.markdown(
-    "<div class='warn-line' style='margin:16px 48px 0;max-width:480px;'>"
-    "<b>Not for clinical use.</b> Research demo over synthetic data. Outputs are illustrative."
-    "</div>",
-    unsafe_allow_html=True,
-)
+    st.markdown(
+            "<div class='warn-line' style='margin:16px 48px 0;max-width:480px;'>"
+            "<b>Not for clinical use.</b> Research demo over synthetic data. Outputs are illustrative."
+            "</div>",
+            unsafe_allow_html=True,
+    )
 
 style.footer()
