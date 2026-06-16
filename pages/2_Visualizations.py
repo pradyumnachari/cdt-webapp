@@ -201,8 +201,8 @@ def _unique_values(path: tuple) -> list:
 
 def _on_reset():
     for k in ("flt_grade", "flt_loc", "flt_age", "flt_gender"):
-        st.session_state.pop(k, None)
-
+        st.session_state[k] = []
+    st.rerun()
 
 f1, f2, f3, f4 = st.columns(4)
 with f1:
