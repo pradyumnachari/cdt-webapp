@@ -502,8 +502,7 @@ st.markdown(
           symptoms) connected to the L1 decision and to the eventual
           functional outcome. Thicker ribbons = more patients.
         </div>
-        <div style='font-size:12px;color:#2563eb;margin-top:8px;
-                    font-weight:600;'>→ click Tab 1</div>
+       
       </div>
       <div style='border:1px solid #ddd6fe;border-radius:10px;
                   padding:14px 16px;background:#f5f3ff;'>
