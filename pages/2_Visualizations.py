@@ -441,28 +441,66 @@ st.markdown("<p class='section-label' style='margin-top:24px;'>"
 st.markdown(
     """
     <div style='font-size:13.5px;color:#334155;line-height:1.6;
-                margin:0 0 12px 0;'>
+                margin:0 0 16px 0;'>
       A <b>treatment pathway</b> is the ordered sequence of decisions a
-      patient went through — for example, watch-and-wait at L1, surgery
-      at L2, and then watch-and-wait again at L3. The three views below
-      let you look at the same pathways from different angles:
-      <ul style='margin:8px 0 4px 18px;padding:0;'>
-        <li><b>Initial state → first treatment → outcome</b> shows how
-          the patient's clinical state at presentation (tumour size,
+      patient went through. The three views below let you look at the
+      same pathways from different angles:
+    </div>
+    <div style='display:grid;grid-template-columns:1fr 1fr 1fr;
+                gap:12px;margin-bottom:16px;'>
+      <div style='border:1px solid #bfdbfe;border-radius:10px;
+                  padding:14px 16px;background:#eff6ff;'>
+        <div style='font-size:11px;font-weight:700;text-transform:uppercase;
+                    letter-spacing:0.09em;color:#2563eb;margin-bottom:6px;'>
+          View 1
+        </div>
+        <div style='font-size:14px;font-weight:700;color:#0f172a;
+                    margin-bottom:6px;'>
+          Initial state → first treatment → outcome
+        </div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          How the patient's clinical state at presentation (tumour size,
           symptoms) connected to the L1 decision and to the eventual
-          functional outcome. Thicker ribbons = more patients followed
-          that link.</li>
-        <li><b>Full trajectory (L1 → L2 → L3 → outcome)</b> shows the
-          complete sequence of decisions across all three levels. Look
-          for the dominant ribbons (the most common pathways) and where
-          flows diverge or recombine.</li>
-        <li><b>Top trajectories ranked</b> lists the most common
-          end-to-end pathways with how often each occurred and the
-          functional-outcome rate within each.</li>
-      </ul>
-      Together, these views answer: <i>what treatment patterns are most
-      common in this cohort, and which patterns are associated with the
-      best (or worst) functional outcomes?</i>
+          functional outcome. Thicker ribbons = more patients.
+        </div>
+      </div>
+      <div style='border:1px solid #ddd6fe;border-radius:10px;
+                  padding:14px 16px;background:#f5f3ff;'>
+        <div style='font-size:11px;font-weight:700;text-transform:uppercase;
+                    letter-spacing:0.09em;color:#7c3aed;margin-bottom:6px;'>
+          View 2
+        </div>
+        <div style='font-size:14px;font-weight:700;color:#0f172a;
+                    margin-bottom:6px;'>
+          Full trajectory (L1 → L2 → L3 → outcome)
+        </div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          The complete sequence of decisions across all three levels.
+          Look for the dominant ribbons (most common pathways) and
+          where flows diverge or recombine.
+        </div>
+      </div>
+      <div style='border:1px solid #bbf7d0;border-radius:10px;
+                  padding:14px 16px;background:#f0fdf4;'>
+        <div style='font-size:11px;font-weight:700;text-transform:uppercase;
+                    letter-spacing:0.09em;color:#16a34a;margin-bottom:6px;'>
+          View 3
+        </div>
+        <div style='font-size:14px;font-weight:700;color:#0f172a;
+                    margin-bottom:6px;'>
+          Top trajectories ranked
+        </div>
+        <div style='font-size:13px;color:#334155;line-height:1.55;'>
+          The most common end-to-end pathways listed as a table, with
+          how often each occurred and the functional-outcome rate
+          within each.
+        </div>
+      </div>
+    </div>
+    <div style='font-size:13px;color:#475569;margin-bottom:12px;
+                font-style:italic;'>
+      Together: what treatment patterns are most common, and which are
+      associated with the best (or worst) functional outcomes?
     </div>
     """,
     unsafe_allow_html=True,
