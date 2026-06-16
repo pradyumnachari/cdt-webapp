@@ -13,8 +13,8 @@ from . import style
 _NAV_ITEMS = [
     ("overview", "Overview",                   "app.py"),
     ("ask",      "Ask my data",                "pages/1_Ask_my_data.py"),
-    ("viz",      "Visualizations",             "pages/2_Visualizations.py"),
-    ("similar",  "Similar patients & evidence", "pages/3_Similar_patients_and_evidence.py"),
+    ("viz",      "Visualize",             "pages/2_Visualizations.py"),
+    ("similar",  "Find Similar Patients", "pages/3_Similar_patients_and_evidence.py"),
 ]
 
 # Inline logo: a root node branching to three coloured action leaves
