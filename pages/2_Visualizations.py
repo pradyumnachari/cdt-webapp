@@ -515,8 +515,7 @@ st.markdown(
           Look for the dominant ribbons (most common pathways) and
           where flows diverge or recombine.
         </div>
-        <div style='font-size:12px;color:#7c3aed;margin-top:8px;
-                    font-weight:600;'>→ click Tab 2</div>
+       
       </div>
       <div style='border:1px solid #bbf7d0;border-radius:10px;
                   padding:14px 16px;background:#f0fdf4;'>
@@ -529,8 +528,7 @@ st.markdown(
           how often each occurred and the functional-outcome rate
           within each.
         </div>
-        <div style='font-size:12px;color:#16a34a;margin-top:8px;
-                    font-weight:600;'>→ click Tab 3</div>
+        
       </div>
     </div>
     <div style='font-size:13px;color:#475569;margin-bottom:12px;
