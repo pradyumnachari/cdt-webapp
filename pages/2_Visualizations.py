@@ -276,8 +276,51 @@ if not filtered:
 # ─────────────────────────────────────────────────────────────────────────
 # Cohort summary — composition (left) + functional rate (right)
 # ─────────────────────────────────────────────────────────────────────────
-st.markdown("<p class='section-label'>Cohort at a glance</p>",
-            unsafe_allow_html=True)
+st.markdown("<p class='section-label' style='margin-top:24px;'>"
+            "Treatment pathways</p>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='display:grid;grid-template-columns:1fr 1fr;
+                gap:12px;margin-bottom:16px;'>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#f8fafc;'>
+        <div style='font-size:11px;font-weight:700;text-transform:uppercase;
+                    letter-spacing:0.09em;color:#475569;margin-bottom:8px;'>
+          Tumour size
+        </div>
+        <div style='display:flex;flex-direction:column;gap:6px;
+                    font-size:13px;color:#334155;'>
+          <div><span style='font-weight:700;color:#0f172a;'>Small</span>
+            — tumour under 2 cm</div>
+          <div><span style='font-weight:700;color:#0f172a;'>Medium</span>
+            — tumour 2 – 4 cm</div>
+          <div><span style='font-weight:700;color:#0f172a;'>Large</span>
+            — tumour 4 cm or more</div>
+        </div>
+      </div>
+      <div style='border:1px solid #e2e8f0;border-radius:10px;
+                  padding:14px 16px;background:#f8fafc;'>
+        <div style='font-size:11px;font-weight:700;text-transform:uppercase;
+                    letter-spacing:0.09em;color:#475569;margin-bottom:8px;'>
+          Symptoms at presentation
+        </div>
+        <div style='display:flex;flex-direction:column;gap:6px;
+                    font-size:13px;color:#334155;'>
+          <div><span style='font-weight:700;color:#0f172a;'>None</span>
+            — asymptomatic at presentation</div>
+          <div><span style='font-weight:700;color:#0f172a;'>Present</span>
+            — symptomatic at presentation (e.g. headache, seizure,
+            focal deficit)</div>
+        </div>
+      </div>
+    </div>
+    <div style='font-size:12.5px;color:#475569;margin-bottom:14px;
+                font-style:italic;'>
+      Example: "medium none" = tumour 3–5 cm, asymptomatic at presentation.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 stats = cohort_stats(filtered)
 baseline = cohort_stats(patients)
