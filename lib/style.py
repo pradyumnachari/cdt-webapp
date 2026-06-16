@@ -125,7 +125,7 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     font-weight: 700;
     letter-spacing: 0.10em;
     text-transform: uppercase;
-    color: #475569;          /* darker than #64748b for WCAG-AA on white */
+    color: #475569;
     margin: 22px 0 8px 0;
     padding-bottom: 4px;
     border-bottom: 1px solid #e2e8f0;
@@ -140,11 +140,11 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     margin-bottom: 8px;
 }
 .stat-card-label {
-    font-size: 12.5px;       /* bumped from 11px for readability */
+    font-size: 12.5px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #475569;          /* darker than #64748b on white */
+    color: #475569;
     margin: 0 0 4px 0;
 }
 .stat-card-value {
@@ -217,8 +217,8 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     border-left: 3px solid #cbd5e1;
     padding: 10px 14px;
     border-radius: 4px;
-    font-size: 13.5px;       /* bumped from 12.5px for readability */
-    color: #334155;          /* darker than #475569 */
+    font-size: 13.5px;
+    color: #334155;
     margin-bottom: 12px;
     line-height: 1.55;
 }
@@ -233,23 +233,22 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     line-height: 1.55;
 }
 
-/* ── Persistent experimental banner (rendered below nav strip) ───── */
+/* ── Persistent experimental banner ─────────────────────────────── */
 .banner {
-    background: #fef3c7;        /* amber-100 */
+    background: #fef3c7;
     border-top: 1px solid #fcd34d;
     border-bottom: 1px solid #fcd34d;
-    color: #78350f;             /* amber-900 */
+    color: #78350f;
     font-size: 12.5px;
     font-weight: 600;
     text-align: center;
     padding: 6px 14px;
     letter-spacing: 0.02em;
-    margin: 0 -1rem 14px -1rem;  /* break out of block-container padding */
+    margin: 0 -1rem 14px -1rem;
 }
 
-/* ── Responsive nav (narrow viewports stack the buttons) ────────── */
+/* ── Responsive nav ─────────────────────────────────────────────── */
 @media (max-width: 760px) {
-    /* Streamlit renders st.columns as flex rows; allow them to wrap */
     [data-testid="stHorizontalBlock"] {
         flex-wrap: wrap !important;
     }
@@ -295,12 +294,6 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     color: #64748b;
     line-height: 1.55;
     margin: 0;
-    /* ── Method-step diagram ────────────────────────────────────────── */
-.step-desc {
-    font-size: 12.5px;
-    color: #64748b;
-    line-height: 1.55;
-    margin: 0;
 }
 
 /* ── Chat input bar — make it pop ───────────────────────────────── */
@@ -321,10 +314,6 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
 [data-testid="stChatInputContainer"] {
     border-radius: 14px !important;
     padding: 4px !important;
-}
-
-</style>
-"""
 }
 </style>
 """
