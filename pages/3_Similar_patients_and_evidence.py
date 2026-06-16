@@ -397,7 +397,7 @@ st.markdown(
 )
 
 # Optional charts (off by default — the text above is the primary view)
-with st.expander("Show the bar charts", expanded=False):
+with st.expander(f"Show bar charts: how similar patients were treated at L{sel_level} and their functional outcomes", expanded=False):
     ch_l, ch_r = st.columns(2)
     with ch_l:
         acts = [a for a in ACTIONS if p_by_action.get(a) is not None]
