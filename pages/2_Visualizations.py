@@ -495,10 +495,6 @@ st.markdown(
                   padding:14px 16px;background:#eff6ff;'>
         <div style='font-size:11px;font-weight:700;text-transform:uppercase;
                     letter-spacing:0.09em;color:#2563eb;margin-bottom:6px;'>
-          View 1
-        </div>
-        <div style='font-size:14px;font-weight:700;color:#0f172a;
-                    margin-bottom:6px;'>
           Initial state → first treatment → outcome
         </div>
         <div style='font-size:13px;color:#334155;line-height:1.55;'>
@@ -506,15 +502,13 @@ st.markdown(
           symptoms) connected to the L1 decision and to the eventual
           functional outcome. Thicker ribbons = more patients.
         </div>
+        <div style='font-size:12px;color:#2563eb;margin-top:8px;
+                    font-weight:600;'>→ click Tab 1</div>
       </div>
       <div style='border:1px solid #ddd6fe;border-radius:10px;
                   padding:14px 16px;background:#f5f3ff;'>
         <div style='font-size:11px;font-weight:700;text-transform:uppercase;
                     letter-spacing:0.09em;color:#7c3aed;margin-bottom:6px;'>
-          View 2
-        </div>
-        <div style='font-size:14px;font-weight:700;color:#0f172a;
-                    margin-bottom:6px;'>
           Full trajectory (L1 → L2 → L3 → outcome)
         </div>
         <div style='font-size:13px;color:#334155;line-height:1.55;'>
@@ -522,15 +516,13 @@ st.markdown(
           Look for the dominant ribbons (most common pathways) and
           where flows diverge or recombine.
         </div>
+        <div style='font-size:12px;color:#7c3aed;margin-top:8px;
+                    font-weight:600;'>→ click Tab 2</div>
       </div>
       <div style='border:1px solid #bbf7d0;border-radius:10px;
                   padding:14px 16px;background:#f0fdf4;'>
         <div style='font-size:11px;font-weight:700;text-transform:uppercase;
                     letter-spacing:0.09em;color:#16a34a;margin-bottom:6px;'>
-          View 3
-        </div>
-        <div style='font-size:14px;font-weight:700;color:#0f172a;
-                    margin-bottom:6px;'>
           Top trajectories ranked
         </div>
         <div style='font-size:13px;color:#334155;line-height:1.55;'>
@@ -538,6 +530,8 @@ st.markdown(
           how often each occurred and the functional-outcome rate
           within each.
         </div>
+        <div style='font-size:12px;color:#16a34a;margin-top:8px;
+                    font-weight:600;'>→ click Tab 3</div>
       </div>
     </div>
     <div style='font-size:13px;color:#475569;margin-bottom:12px;
@@ -548,7 +542,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
 # Color-legend strip above the Sankeys — the swatch colours mirror the
 # pastel palette the readability layer applies to every Sankey node, so
 # users can read the diagram directly off this strip.
