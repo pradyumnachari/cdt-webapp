@@ -295,6 +295,36 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     color: #64748b;
     line-height: 1.55;
     margin: 0;
+    /* ── Method-step diagram ────────────────────────────────────────── */
+.step-desc {
+    font-size: 12.5px;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* ── Chat input bar — make it pop ───────────────────────────────── */
+[data-testid="stChatInput"] textarea {
+    border: 2.5px solid #2563eb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12) !important;
+    background: #f8faff !important;
+    font-size: 15px !important;
+    padding: 14px 16px !important;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+[data-testid="stChatInput"] textarea:focus {
+    border-color: #1d4ed8 !important;
+    box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.18) !important;
+    background: #ffffff !important;
+}
+[data-testid="stChatInputContainer"] {
+    border-radius: 14px !important;
+    padding: 4px !important;
+}
+
+</style>
+"""
 }
 </style>
 """
