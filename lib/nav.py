@@ -48,7 +48,7 @@ def render(active: str) -> None:
     """
     # 5 columns: logo + 4 tabs. The "Similar patients & evidence" cell
     # gets extra width because the label is longest.
-   cols = st.columns([2.8, 1.0, 1.1, 1.2, 1.4, 1.4])
+    cols = st.columns([2.8, 1.0, 1.1, 1.2, 1.4, 1.4])
 
     with cols[0]:
         st.markdown(
