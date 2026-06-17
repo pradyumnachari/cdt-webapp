@@ -321,7 +321,6 @@ div[data-testid="stButton"] > button {
     display: none !important;
 }
 
-/* ── Overview feature cards: clickable links with hover affordance ─ */
 .overview-card, .overview-card:visited, .overview-card:active {
     border: 1px solid #e2e8f0;
     border-radius: 10px;
