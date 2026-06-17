@@ -388,8 +388,8 @@ def inject() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
 
 
-_BANNER_TEXT = ("Experimental research demo &nbsp;·&nbsp; synthetic data "
-                "&nbsp;·&nbsp; not for clinical use")
+_BANNER_TEXT = ("Experimental Research Demo &nbsp;·&nbsp; Synthetic Data "
+                "&nbsp;·&nbsp; Not For Clinical Use")
 
 
 def banner() -> None:
