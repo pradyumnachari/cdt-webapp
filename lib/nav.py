@@ -11,10 +11,11 @@ from . import style
 
 # Page order matches Streamlit's numeric-prefix ordering on disk.
 _NAV_ITEMS = [
-    ("overview", "Overview",                   "app.py"),
-    ("ask",      "Ask my data",                "pages/1_Ask_my_data.py"),
-    ("viz",      "Visualize",             "pages/2_Visualizations.py"),
-    ("similar",  "Find Similar Patients", "pages/3_Similar_patients_and_evidence.py"),
+    ("overview", "Overview",            "app.py"),
+    ("ask",      "Ask My Data",         "pages/1_Ask_my_data.py"),
+    ("viz",      "Visualizations",      "pages/2_Visualizations.py"),
+    ("similar",  "Similar Patients",    "pages/3_Similar_patients_and_evidence.py"),
+    ("tech",     "Technical Details",   "pages/4_Technical_details.py"),
 ]
 
 # Inline logo: a root node branching to three coloured action leaves
