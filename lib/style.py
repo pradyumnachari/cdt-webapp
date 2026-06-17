@@ -319,14 +319,7 @@ div[data-testid="stButton"] > button {
 [data-testid="collapsedControl"] {
     display: none !important;
 }
-/* ── Equal-height columns for illustrative case tiles + buttons ──── */
-div[data-testid="stHorizontalBlock"] div[data-testid="stVerticalBlock"] {
-    height: 100%;
-}
-div[data-testid="column"] {
-    display: flex;
-    flex-direction: column;
-}
+
 /* ── Chat input bar — make it pop ───────────────────────────────── */
 [data-testid="stChatInput"] textarea {
     border: 2.5px solid #2563eb !important;
