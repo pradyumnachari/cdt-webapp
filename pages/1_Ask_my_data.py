@@ -62,11 +62,16 @@ if not api_key:
 # ── Developer mode toggle (controls the debug panel in qa_render) ─────────
 # ── Developer mode toggle (controls the debug panel in qa_render) ─────────
 # ── Developer mode toggle (controls the debug panel in qa_render) ─────────
-# ── Developer mode toggle removed from UI (per request); keep the
-# session-state default so qa_render's debug panel logic still works
-# if re-enabled later.
+# ── Developer mode toggle (controls the debug panel in qa_render) ─────────
 if "dev_mode" not in st.session_state:
     st.session_state.dev_mode = False
+dev_col, info_col = st.columns([3, 1])
+with dev_col:
+    st.session_state.dev_mode = st.checkbox(
+        "Show technical detail (router plan, locked stats block, "
+        "verifier output)",
+        value=st.session_state.dev_mode,
+    )
 
 # ── Starter questions (5 most diverse; no engine-internal qtype labels) ───
 STARTERS = [
