@@ -321,6 +321,35 @@ div[data-testid="stButton"] > button {
     display: none !important;
 }
 
+/* ── Overview feature cards: clickable links with hover affordance ─ */
+.overview-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: #fff;
+    display: block;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    position: relative;
+}
+.overview-card:hover {
+    background: #f8fafc;
+    border-color: #2563eb;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.10);
+    transform: translateY(-1px);
+}
+.overview-card-arrow {
+    display: inline-block;
+    margin-left: 4px;
+    color: #2563eb;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.overview-card:hover .overview-card-arrow {
+    opacity: 1;
+}
 /* ── Chat input bar — make it pop ───────────────────────────────── */
 [data-testid="stChatInput"] textarea {
     border: 2.5px solid #2563eb !important;
