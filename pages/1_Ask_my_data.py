@@ -96,8 +96,7 @@ cols = st.columns(2)
 for i, q in enumerate(STARTERS):
     with cols[i % 2]:
         # Truncate visually but keep the full question as the action payload
-        display = q if len(q) <= 110 else q[:107] + "…"
-        if st.button(display, key=f"starter_{i}",
+        if st.button(q, key=f"starter_{i}",
                      use_container_width=True, disabled=not api_key):
             st.session_state["pending_q"] = q
 
