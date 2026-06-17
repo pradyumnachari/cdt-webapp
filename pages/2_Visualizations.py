@@ -29,6 +29,12 @@ from lib.figures import build_action_outcome_sankey  # noqa: E402
 st.set_page_config(page_title="Visualizations — Ask my data",
                    page_icon="🧠", layout="wide",
                    initial_sidebar_state="collapsed")
+st.markdown("""
+    <style>
+    [data-testid="stSidebar"] { display: none !important; }
+    [data-testid="collapsedControl"] { display: none !important; }
+    </style>
+""", unsafe_allow_html=True)
 style.inject()
 nav.render("viz")
 
