@@ -403,6 +403,30 @@ st.markdown(
 )
 
 # Optional charts (off by default — the text above is the primary view)
+
+# "How are similar patients calculated?" — on-demand, info-only
+with st.expander("How are similar patients calculated?", expanded=False):
+    st.markdown(
+        f"""
+        **Matching is done on archetype** — the combination of WHO grade,
+        tumour location, age band, and gender. Every historical
+        training patient is scored against this index patient on those
+        four dimensions and given a *similarity weight* between 0 and 1.
+
+        For the **summary above**, we take the **top
+        {K_SUMMARY} most archetype-similar patients who also reached
+        decision level L{sel_level}** ({n_similar} found for this
+        patient), and weight them equally inside that subset. We
+        deliberately *do not* dilute the average by including patients
+        whose archetype barely overlaps with this one. The summary
+        denominator is the count of that similar subset, not the count
+        of everyone at this level.
+
+        The list of *similar historical patients* below shows the top
+        {TOP_K_SIMILAR} of those — the named patients you can read
+        individually, each with their archetype-similarity score.
+        """
+    )
 with st.expander(f"Show bar charts: how similar patients were treated at L{sel_level} and their functional outcomes", expanded=False):
     ch_l, ch_r = st.columns(2)
     with ch_l:
@@ -446,30 +470,6 @@ with st.expander(f"Show bar charts: how similar patients were treated at L{sel_l
             showlegend=False,
         )
         st.plotly_chart(fig2, use_container_width=True)
-
-# "How are similar patients calculated?" — on-demand, info-only
-with st.expander("How are similar patients calculated?", expanded=False):
-    st.markdown(
-        f"""
-        **Matching is done on archetype** — the combination of WHO grade,
-        tumour location, age band, and gender. Every historical
-        training patient is scored against this index patient on those
-        four dimensions and given a *similarity weight* between 0 and 1.
-
-        For the **summary above**, we take the **top
-        {K_SUMMARY} most archetype-similar patients who also reached
-        decision level L{sel_level}** ({n_similar} found for this
-        patient), and weight them equally inside that subset. We
-        deliberately *do not* dilute the average by including patients
-        whose archetype barely overlaps with this one. The summary
-        denominator is the count of that similar subset, not the count
-        of everyone at this level.
-
-        The list of *similar historical patients* below shows the top
-        {TOP_K_SIMILAR} of those — the named patients you can read
-        individually, each with their archetype-similarity score.
-        """
-    )
 
 # ─────────────────────────────────────────────────────────────────────────
 # What actually happened to this patient (moved up from page bottom)
