@@ -22,6 +22,12 @@ from lib.openai_key import get_key, render_missing_key_panel  # noqa: E402
 
 st.set_page_config(page_title="Ask my data — Q&A", page_icon="🧠",
                    layout="wide", initial_sidebar_state="collapsed")
+st.markdown("""
+    <style>
+    [data-testid="stSidebar"] { display: none !important; }
+    [data-testid="collapsedControl"] { display: none !important; }
+    </style>
+""", unsafe_allow_html=True)
 style.inject()
 nav.render("ask")
 
