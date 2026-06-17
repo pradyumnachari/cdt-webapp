@@ -21,7 +21,7 @@ from lib.bootstrap import get_cohort  # noqa: E402
 from lib.openai_key import get_key, render_missing_key_panel  # noqa: E402
 
 st.set_page_config(page_title="Ask my data — Q&A", page_icon="🧠",
-                   layout="wide", initial_sidebar_state="collapsed")
+                   layout="wide", initial_sidebar_state="hidden")
 style.inject()
 nav.render("ask")
 
