@@ -322,16 +322,20 @@ div[data-testid="stButton"] > button {
 }
 
 /* ── Overview feature cards: clickable links with hover affordance ─ */
-.overview-card {
+.overview-card, .overview-card:visited, .overview-card:active {
     border: 1px solid #e2e8f0;
     border-radius: 10px;
     padding: 14px 16px;
     background: #fff;
     display: block;
-    text-decoration: none;
+    text-decoration: none !important;
     transition: all 0.15s ease;
     cursor: pointer;
     position: relative;
+    color: inherit;
+}
+.overview-card * {
+    text-decoration: none !important;
 }
 .overview-card:hover {
     background: #f8fafc;
