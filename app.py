@@ -63,8 +63,8 @@ st.markdown("<p class='section-label'>What you can do here</p>",
             unsafe_allow_html=True)
 st.markdown(
     """
-    <div style='max-width:720px;display:grid;grid-template-columns:1fr 1fr 1fr;
-                gap:14px;margin-top:6px;'>
+    <div style='max-width:720px;margin:6px auto 0 auto;display:grid;
+                grid-template-columns:1fr 1fr 1fr;gap:14px;'>
       <a href="Ask_my_data" target="_self" class="overview-card">
         <div style='font-size:11.5px;text-transform:uppercase;
                     letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
