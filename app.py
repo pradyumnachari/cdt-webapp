@@ -24,7 +24,7 @@ st.set_page_config(
     page_title="Ask my data — meningioma cohort",
     page_icon="🧠",
     layout="wide",
-    initial_sidebar_state="hidden",
+    initial_sidebar_state="collapsed",
 )
 style.inject()
 nav.render("overview")
