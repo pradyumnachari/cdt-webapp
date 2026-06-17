@@ -776,17 +776,26 @@ with tab3:
         "each row is computed only over patients with a known outcome.</div>",
         unsafe_allow_html=True,
     )
-    tt = build_top_trajectories_table(recs, top_n=12)
-    if tt is None:
-        st.caption("No pathway data for this filter.")
-    else:
-        import pandas as pd
-        df = pd.DataFrame(tt["rows"])
-        st.dataframe(df, use_container_width=True, hide_index=True)
-        st.caption(
-            f"{tt['n_unique']} unique trajectories across "
-            f"{tt['n_total']:,} patients; the top 12 are shown."
-        )
+    cap = 12
+        tt = build_top_trajectories_table(recs, top_n=cap)
+        if tt is None:
+            st.caption("No pathway data for this filter.")
+        else:
+            import pandas as pd
+            df = pd.DataFrame(tt["rows"])
+            st.dataframe(df, use_container_width=True, hide_index=True)
+            n_unique = tt["n_unique"]
+            n_patients = tt["n_total"]
+            if n_unique <= cap:
+                st.caption(
+                    f"{n_unique} unique trajectories across "
+                    f"{n_patients:,} patients; all are shown."
+                )
+            else:
+                st.caption(
+                    f"{n_unique} unique trajectories across "
+                    f"{n_patients:,} patients; the top {cap} are shown."
+                )
 
 
 style.footer()
