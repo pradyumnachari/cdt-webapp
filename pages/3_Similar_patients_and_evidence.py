@@ -124,7 +124,7 @@ def pick_exemplars() -> list:
 st.markdown(
     """
     <div class="hero" style="padding:24px 4px 14px 4px;">
-      <p class="hero-eyebrow">Similar patients &amp; evidence</p>
+      <p class="hero-eyebrow">Similar patients</p>
       <h1 class="hero-title" style="font-size:1.85rem;">
         For one patient at one decision point, see how archetype-similar
         patients were treated and how they did.</h1>
