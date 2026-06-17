@@ -96,11 +96,16 @@ if "chat_history" not in st.session_state:
 
 # Pull pending question (set by a starter button) or the chat input
 user_q = st.session_state.pop("pending_q", None)
+st.markdown("<p class='section-label' style='margin-top:20px;'>"
+            "Ask a clinical question about the cohort</p>",
+            unsafe_allow_html=True)
 typed = st.text_input(
-    "Type your question here",
-    placeholder="Ask a question about the cohort…" if api_key
+    "Ask a clinical question about the cohort",
+    placeholder="e.g. What is the functional rate for grade 2 patients "
+                "treated with surgery?" if api_key
     else "Configure an OpenAI key to enable Q&A",
     disabled=not api_key, key="chat_input",
+    label_visibility="collapsed",
 )
 if typed:
     user_q = typed
