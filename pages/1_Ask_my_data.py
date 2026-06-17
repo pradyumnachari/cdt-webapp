@@ -109,11 +109,29 @@ typed_area = st.text_area(
     disabled=not api_key, key="chat_input", height=100,
     label_visibility="collapsed",
 )
-ask_col, _ = st.columns([1, 5])
+ask_col, clear_col = st.columns([1, 1])
 with ask_col:
     ask_clicked = st.button("Ask", type="primary",
-                            use_container_width=True, disabled=not api_key)
+                            use_container_width=True, disabled=not api_key,
+                            key="ask_btn")
 typed = typed_area if ask_clicked else None
+
+st.markdown(
+    """
+    <script>
+    const doc = window.parent.document;
+    doc.addEventListener('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+            const buttons = doc.querySelectorAll('button[kind="primary"]');
+            for (const b of buttons) {
+                if (b.innerText.trim() === 'Ask') { b.click(); break; }
+            }
+        }
+    });
+    </script>
+    """,
+    unsafe_allow_html=True,
+)
 if typed:
     user_q = typed
 
