@@ -295,7 +295,16 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     line-height: 1.55;
     margin: 0;
 }
-
+/* ── Starter question buttons — allow full text, no truncation ───── */
+div[data-testid="stButton"] > button {
+    height: auto !important;
+    min-height: 2.5rem !important;
+    white-space: normal !important;
+    text-align: left !important;
+    line-height: 1.45 !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
 /* ── Chat input bar — make it pop ───────────────────────────────── */
 [data-testid="stChatInput"] textarea {
     border: 2.5px solid #2563eb !important;
