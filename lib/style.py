@@ -312,6 +312,13 @@ div[data-testid="stButton"] > button {
 [data-testid="collapsedControl"] {
     display: none !important;
 }
+/* ── Hide sidebar entirely ──────────────────────────────────────── */
+[data-testid="stSidebar"] {
+    display: none !important;
+}
+[data-testid="collapsedControl"] {
+    display: none !important;
+}
 /* ── Chat input bar — make it pop ───────────────────────────────── */
 [data-testid="stChatInput"] textarea {
     border: 2.5px solid #2563eb !important;
