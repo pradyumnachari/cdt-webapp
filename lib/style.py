@@ -360,6 +360,20 @@ div[data-testid="stButton"] > button p {
 .overview-card:hover .overview-card-arrow {
     opacity: 1;
 }
+/* ── Fix help-tooltip (?) positioning + text alignment ────────────── */
+div[data-testid="stTooltipContent"] {
+    text-align: center !important;
+}
+div[data-testid="stTooltipIcon"] {
+    position: relative !important;
+}
+div[data-testid="stTooltipIcon"] > div[role="tooltip"] {
+    left: 100% !important;
+    right: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin-left: 8px !important;
+}
 /* ── Question input — make it the visually dominant element ──────── */
 div[data-testid="stTextInput"] input,
 div[data-testid="stTextArea"] textarea {
