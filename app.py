@@ -63,10 +63,9 @@ st.markdown("<p class='section-label'>What you can do here</p>",
             unsafe_allow_html=True)
 st.markdown(
     """
-    <div style='display:grid;grid-template-columns:1fr 1fr 1fr;
+    <div style='max-width:720px;display:grid;grid-template-columns:1fr 1fr 1fr;
                 gap:14px;margin-top:6px;'>
-      <div style='border:1px solid #e2e8f0;border-radius:10px;
-                  padding:14px 16px;background:#fff;'>
+      <a href="Ask_my_data" target="_self" class="overview-card">
         <div style='font-size:11.5px;text-transform:uppercase;
                     letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
           Ask my data
@@ -76,10 +75,10 @@ st.markdown(
         <div style='font-size:13px;color:#334155;line-height:1.55;'>
           Free-form clinical questions, answered with statistics
           computed in code — not invented.
+          <span class="overview-card-arrow">→</span>
         </div>
-      </div>
-      <div style='border:1px solid #e2e8f0;border-radius:10px;
-                  padding:14px 16px;background:#fff;'>
+      </a>
+      <a href="Visualizations" target="_self" class="overview-card">
         <div style='font-size:11.5px;text-transform:uppercase;
                     letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
           Visualizations
@@ -89,10 +88,10 @@ st.markdown(
         <div style='font-size:13px;color:#334155;line-height:1.55;'>
           Filter by grade, location, age, sex. See outcomes and
           treatment pathways live.
+          <span class="overview-card-arrow">→</span>
         </div>
-      </div>
-      <div style='border:1px solid #e2e8f0;border-radius:10px;
-                  padding:14px 16px;background:#fff;'>
+      </a>
+      <a href="Similar_patients_and_evidence" target="_self" class="overview-card">
         <div style='font-size:11.5px;text-transform:uppercase;
                     letter-spacing:0.10em;font-weight:700;color:#1d4ed8;'>
           Similar patients
@@ -102,8 +101,9 @@ st.markdown(
         <div style='font-size:13px;color:#334155;line-height:1.55;'>
           For one patient at one decision point, see how
           similar historical patients did.
+          <span class="overview-card-arrow">→</span>
         </div>
-      </div>
+      </a>
     </div>
     """,
     unsafe_allow_html=True,
