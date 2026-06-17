@@ -14,7 +14,7 @@ _NAV_ITEMS = [
     ("overview", "Overview",            "app.py"),
     ("ask",      "Ask My Data",         "pages/1_Ask_my_data.py"),
     ("viz",      "Visualizations",      "pages/2_Visualizations.py"),
-    ("similar",  "Similar Patients & Evidence",  "pages/3_Similar_patients_and_evidence.py"),
+    ("similar",  "Similar Patients",    "pages/3_Similar_patients_and_evidence.py"),
     ("tech",     "Technical Details",   "pages/4_Technical_details.py"),
 ]
 
