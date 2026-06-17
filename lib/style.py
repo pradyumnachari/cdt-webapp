@@ -327,7 +327,9 @@ div[data-testid="stButton"] > button {
     border-radius: 10px;
     padding: 14px 16px;
     background: #fff;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     text-decoration: none !important;
     transition: all 0.15s ease;
     cursor: pointer;
