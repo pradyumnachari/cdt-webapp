@@ -43,7 +43,7 @@ st.markdown(
     """
     <div class="hero">
       <p class="hero-eyebrow">Ask my data &middot; meningioma cohort</p>
-      <h1 class="hero-title">
+      <h1 class="hero-title" style="font-size:1.85rem;">
         A retrospective explorer for longitudinal meningioma care.</h1>
       <p class="hero-sub">
         Meningioma is managed over years, not in a single episode. The
