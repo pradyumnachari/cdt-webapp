@@ -360,24 +360,22 @@ div[data-testid="stButton"] > button p {
 .overview-card:hover .overview-card-arrow {
     opacity: 1;
 }
-/* ── Chat input bar — make it pop ───────────────────────────────── */
-[data-testid="stChatInput"] textarea {
+/* ── Question input — make it the visually dominant element ──────── */
+div[data-testid="stTextInput"] input,
+div[data-testid="stTextArea"] textarea {
     border: 2.5px solid #2563eb !important;
     border-radius: 12px !important;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12) !important;
     background: #f8faff !important;
     font-size: 15px !important;
     padding: 14px 16px !important;
+    min-height: 100px !important;
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
-[data-testid="stChatInput"] textarea:focus {
+div[data-testid="stTextInput"] input:focus,
+div[data-testid="stTextArea"] textarea:focus {
     border-color: #1d4ed8 !important;
     box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.18) !important;
     background: #ffffff !important;
-}
-[data-testid="stChatInputContainer"] {
-    border-radius: 14px !important;
-    padding: 4px !important;
 }
 </style>
 """
