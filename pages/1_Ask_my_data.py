@@ -162,9 +162,11 @@ for answer in reversed(st.session_state.chat_history[-3:]):
             f"different question to recover."
         )
 
-if st.session_state.chat_history:
-    if st.button("Clear conversation", type="secondary", key="clear_chat"):
-        st.session_state.chat_history = []
-        st.rerun()
+with clear_col:
+    if st.session_state.chat_history:
+        if st.button("Clear conversation", type="secondary",
+                     key="clear_chat", use_container_width=True):
+            st.session_state.chat_history = []
+            st.rerun()
 
 style.footer()
