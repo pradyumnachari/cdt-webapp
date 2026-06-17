@@ -27,7 +27,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 style.inject()
-nav.render("overview")
+nav.render("tech")
 
 
 # ─────────────────────────────────────────────────────────────────────────
