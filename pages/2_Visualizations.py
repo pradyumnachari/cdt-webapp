@@ -776,7 +776,7 @@ with tab3:
         "each row is computed only over patients with a known outcome.</div>",
         unsafe_allow_html=True,
     )
-cap = 12
+    cap = 12
     tt = build_top_trajectories_table(recs, top_n=cap)
     if tt is None:
         st.caption("No pathway data for this filter.")
