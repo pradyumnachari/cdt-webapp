@@ -378,6 +378,21 @@ div[data-testid="stTextArea"] textarea:focus {
     box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.18) !important;
     background: #ffffff !important;
 }
+
+/* ── Fix help-tooltip (?) positioning + text alignment ────────────── */
+div[data-testid="stTooltipContent"] {
+    text-align: center !important;
+}
+div[data-testid="stTooltipIcon"] {
+    position: relative !important;
+}
+div[data-testid="stTooltipIcon"] > div[role="tooltip"] {
+    left: 100% !important;
+    right: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin-left: 8px !important;
+}
 </style>
 """
 
