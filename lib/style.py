@@ -305,6 +305,11 @@ div[data-testid="stButton"] > button {
     line-height: 1.45 !important;
     padding-top: 10px !important;
     padding-bottom: 10px !important;
+    justify-content: flex-start !important;
+}
+div[data-testid="stButton"] > button p {
+    text-align: left !important;
+    width: 100%;
 }
 /* ── Hide sidebar entirely — top nav is the only navigation ─────── */
 [data-testid="stSidebar"] {
