@@ -56,6 +56,7 @@ h1, h2, h3, h4 { letter-spacing: -0.015em; }
     background: #ffffff;
     transition: all 0.15s ease;
     height: 100%;
+    min-height: 220px;
     display: flex;
     flex-direction: column;
 }
