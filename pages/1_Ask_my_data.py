@@ -79,29 +79,13 @@ STARTERS = [
 ]
 
 st.markdown(
-    """
-    <div style='background:#eff6ff;border:2px solid #2563eb;border-radius:12px;
-                padding:18px 20px;margin:18px 0 10px 0;'>
-        <div style='font-size:13px;font-weight:700;text-transform:uppercase;
-                    letter-spacing:0.08em;color:#2563eb;margin-bottom:4px;'>
-            🔍 Ask a question
-        </div>
-        <div style='font-size:15px;font-weight:600;color:#0f172a;margin-bottom:6px;'>
-            Type any clinical question about the cohort in the bar below
-        </div>
-        <div style='font-size:13px;color:#475569;'>
-            Or pick a starter question to try it instantly.
-        </div>
-    </div>
-    """,
+    "<p class='section-label'>Starter questions — click to load into "
+    "the box below</p>",
     unsafe_allow_html=True,
 )
-st.markdown("<p class='section-label'>Starter questions</p>",
-            unsafe_allow_html=True)
 cols = st.columns(2)
 for i, q in enumerate(STARTERS):
     with cols[i % 2]:
-        # Truncate visually but keep the full question as the action payload
         if st.button(q, key=f"starter_{i}",
                      use_container_width=True, disabled=not api_key):
             st.session_state["pending_q"] = q
