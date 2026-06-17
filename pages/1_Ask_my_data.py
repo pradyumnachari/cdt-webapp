@@ -59,15 +59,28 @@ if not api_key:
     render_missing_key_panel()
 
 # ── Developer mode toggle (controls the debug panel in qa_render) ─────────
+# ── Developer mode toggle (controls the debug panel in qa_render) ─────────
 if "dev_mode" not in st.session_state:
     st.session_state.dev_mode = False
-st.session_state.dev_mode = st.checkbox(
-    "Show technical detail (router plan, locked stats block, verifier output)",
-    value=st.session_state.dev_mode,
-    help="Off by default. Turn on if you want to inspect how a question was "
-         "routed, what numbers the language model was given, and whether "
-         "every number in the answer traced back to the block.",
-)
+dev_col, info_col = st.columns([3, 1])
+with dev_col:
+    st.session_state.dev_mode = st.checkbox(
+        "Show technical detail (router plan, locked stats block, "
+        "verifier output)",
+        value=st.session_state.dev_mode,
+    )
+with info_col:
+    with st.expander("What does this show? ▾"):
+        st.markdown(
+            """
+            - Off by default.
+            - Turn on to inspect:
+                - how the question was routed
+                - the numbers the language model received
+                - whether every number in the answer traces back to the
+                  locked stats block
+            """
+        )
 
 # ── Starter questions (5 most diverse; no engine-internal qtype labels) ───
 STARTERS = [
