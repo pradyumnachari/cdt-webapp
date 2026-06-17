@@ -305,6 +305,13 @@ div[data-testid="stButton"] > button {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
 }
+/* ── Hide sidebar entirely — top nav is the only navigation ─────── */
+[data-testid="stSidebar"] {
+    display: none !important;
+}
+[data-testid="collapsedControl"] {
+    display: none !important;
+}
 /* ── Chat input bar — make it pop ───────────────────────────────── */
 [data-testid="stChatInput"] textarea {
     border: 2.5px solid #2563eb !important;
