@@ -112,8 +112,9 @@ if "chat_history" not in st.session_state:
 
 # Pull pending question (set by a starter button) or the chat input
 user_q = st.session_state.pop("pending_q", None)
-typed = st.chat_input(
-    "Ask a question about the cohort…" if api_key
+typed = st.text_input(
+    "Type your question here",
+    placeholder="Ask a question about the cohort…" if api_key
     else "Configure an OpenAI key to enable Q&A",
     disabled=not api_key, key="chat_input",
 )
