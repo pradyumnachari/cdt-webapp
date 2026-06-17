@@ -109,7 +109,7 @@ typed_area = st.text_area(
     disabled=not api_key, key="chat_input", height=100,
     label_visibility="collapsed",
 )
-ask_col, _ = st.columns([1, 5])
+ask_col, clear_col = st.columns([1, 5])
 with ask_col:
     ask_clicked = st.button("Ask", type="primary",
                             use_container_width=True, disabled=not api_key)
