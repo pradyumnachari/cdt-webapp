@@ -361,18 +361,11 @@ div[data-testid="stButton"] > button p {
     opacity: 1;
 }
 /* ── Fix help-tooltip (?) positioning + text alignment ────────────── */
-div[data-testid="stTooltipContent"] {
+div[data-baseweb="tooltip"] {
     text-align: center !important;
-}
-div[data-testid="stTooltipIcon"] {
-    position: relative !important;
-}
-div[data-testid="stTooltipIcon"] > div[role="tooltip"] {
-    left: 100% !important;
-    right: auto !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    margin-left: 8px !important;
+    left: auto !important;
+    transform: none !important;
+    margin-left: 24px !important;
 }
 /* ── Question input — make it the visually dominant element ──────── */
 div[data-testid="stTextInput"] input,
