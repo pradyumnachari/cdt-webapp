@@ -79,8 +79,7 @@ STARTERS = [
 ]
 
 st.markdown(
-    "<p class='section-label'>Starter questions — click to load into "
-    "the box below</p>",
+    "<p class='section-label'>Starter questions</p>",
     unsafe_allow_html=True,
 )
 cols = st.columns(2)
@@ -89,6 +88,8 @@ for i, q in enumerate(STARTERS):
         if st.button(q, key=f"starter_{i}",
                      use_container_width=True, disabled=not api_key):
             st.session_state["pending_q"] = q
+
+st.divider()
 
 # ── History store ─────────────────────────────────────────────────────────
 if "chat_history" not in st.session_state:
