@@ -289,6 +289,17 @@ else:
         f"({frac:.0f}% of cohort).</div>",
         unsafe_allow_html=True,
     )
+    clear_filters_col, _ = st.columns([1, 6])
+    with clear_filters_col:
+        st.button("Clear filters", on_click=_on_reset, key="clear_filters_inline",
+                  type="secondary", use_container_width=True)
+else:
+    st.markdown(
+        f"<div class='info-line' style='margin-top:6px;font-size:13px;'>"
+        f"Showing <b>{n_filt:,}</b> of <b>{n_total:,}</b> patients "
+        f"({frac:.0f}% of cohort).</div>",
+        unsafe_allow_html=True,
+    )
 
 if not filtered:
     st.warning("No patients match the current filters. Use **Reset "
