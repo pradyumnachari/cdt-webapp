@@ -280,11 +280,8 @@ if is_filtered:
     )
     clear_filters_col, _ = st.columns([1, 6])
     with clear_filters_col:
-        st.button("Clear filters", on_click=_on_reset, key="clear_filters_inline",
-                  type="secondary", use_container_width=True)
-clear_filters_col, _ = st.columns([1, 6])
-    with clear_filters_col:
-        st.button("Clear filters", on_click=_on_reset, key="clear_filters_inline",
+        st.button("Clear filters", on_click=_on_reset,
+                  key="clear_filters_inline",
                   type="secondary", use_container_width=True)
 else:
     st.markdown(
@@ -293,6 +290,7 @@ else:
         f"({frac:.0f}% of cohort).</div>",
         unsafe_allow_html=True,
     )
+
 if not filtered:
     st.warning("No patients match the current filters. Use **Reset "
                "filters** above to start over.")
@@ -343,7 +341,7 @@ st.markdown(
     </div>
     <div style='font-size:12.5px;color:#475569;margin-bottom:14px;
                 font-style:italic;'>
-      Example: "medium none" = tumour 3–5 cm, asymptomatic at presentation.
+      Example: "medium none" = tumour 2–4 cm, asymptomatic at presentation.
     </div>
     """,
     unsafe_allow_html=True,
@@ -529,7 +527,6 @@ st.markdown(
           symptoms) connected to the L1 decision and to the eventual
           functional outcome. Thicker ribbons = more patients.
         </div>
-       
       </div>
       <div style='border:1px solid #ddd6fe;border-radius:10px;
                   padding:14px 16px;background:#f5f3ff;'>
@@ -542,7 +539,6 @@ st.markdown(
           Look for the dominant ribbons (most common pathways) and
           where flows diverge or recombine.
         </div>
-       
       </div>
       <div style='border:1px solid #bbf7d0;border-radius:10px;
                   padding:14px 16px;background:#f0fdf4;'>
@@ -555,7 +551,6 @@ st.markdown(
           how often each occurred and the functional-outcome rate
           within each.
         </div>
-        
       </div>
     </div>
     <div style='font-size:13px;color:#475569;margin-bottom:12px;
