@@ -265,12 +265,30 @@ n_total = len(patients)
 n_filt = len(filtered)
 frac = (n_filt / n_total * 100) if n_total else 0
 is_filtered = (n_filt != n_total)
-st.markdown(
-    f"<div class='info-line' style='margin-top:6px;font-size:13px;'>"
-    f"Showing <b>{n_filt:,}</b> of <b>{n_total:,}</b> patients "
-    f"({frac:.0f}% of cohort).</div>",
-    unsafe_allow_html=True,
-)
+
+if is_filtered:
+    st.markdown(
+        f"<div style='background:#eff6ff;border-left:3px solid #2563eb;"
+        f"padding:10px 14px;border-radius:4px;margin-top:6px;"
+        f"font-size:13px;color:#1e3a5f;display:flex;align-items:center;"
+        f"justify-content:space-between;flex-wrap:wrap;gap:8px;'>"
+        f"<span>🔽 Showing <b style='font-size:14px;'>{n_filt:,}</b> of "
+        f"<b>{n_total:,}</b> patients "
+        f"(<b>{frac:.1f}%</b> of cohort).</span>"
+        f"</div>",
+        unsafe_allow_html=True,
+    )
+    clear_filters_col, _ = st.columns([1, 6])
+    with clear_filters_col:
+        st.button("Clear filters", on_click=_on_reset, key="clear_filters_inline",
+                  type="secondary", use_container_width=True)
+else:
+    st.markdown(
+        f"<div class='info-line' style='margin-top:6px;font-size:13px;'>"
+        f"Showing <b>{n_filt:,}</b> of <b>{n_total:,}</b> patients "
+        f"({frac:.0f}% of cohort).</div>",
+        unsafe_allow_html=True,
+    )
 
 if not filtered:
     st.warning("No patients match the current filters. Use **Reset "
